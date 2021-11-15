@@ -1,0 +1,9 @@
+# Go Modules
+
+### Update module in go.mod
+To update required module in `go.mod` to the specific commit hash, simply
+replace the version (or pseudo-version) to the desired commit hash, then run
+`go mod tidy`.  
+This rewrites the commit hash to appropriate pseudo-version.  
+You can also specify branch (such as `main` and `feature/awesome`) as long as it
+exists on remote.
