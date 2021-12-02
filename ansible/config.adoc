@@ -1,0 +1,18 @@
+= Config
+Configuration file is searched for in the following order:
+* `ANSIBLE_CONFIG` (environment variable if set)
+* `ansible.cfg` (in the current directory)
+* `~/.ansible.cfg` (in the home directory)
+* `/etc/ansible/ansible.cfg`
+
+== SSH
+[source]
+----
+[defaults]
+
+# equivalent to StrictHostKeyChecking option
+host_key_checking=false
+
+# specify login user
+remote_user=root
+----
