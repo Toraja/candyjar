@@ -24,3 +24,51 @@ Go to ubuntu section `profiles -> list`
 
 #### Change cursor shape
 1. add `"cursorShape": "filledBox"` to the section
+
+
+### Keybind
+Paste value of `actions` below into `setting.json`.
+```json
+{
+    "actions":
+    [
+        {
+            "command": "unbound",
+            "keys": "ctrl+comma"
+        },
+        {
+            "command": "unbound",
+            "keys": "win+sc(41)"
+        },
+        {
+            "command":
+            {
+                "action": "copy",
+                "singleLine": false
+            },
+            "keys": "ctrl+shift+c"
+        },
+        {
+            "command": "find",
+            "keys": "ctrl+shift+f"
+        },
+        {
+            "command": "openTabRenamer",
+            "keys": "ctrl+shift+r"
+        },
+        {
+            "command": "paste",
+            "keys": "ctrl+shift+v"
+        },
+        {
+            "command":
+            {
+                "action": "splitPane",
+                "split": "auto",
+                "splitMode": "duplicate"
+            },
+            "keys": "alt+shift+d"
+        }
+    ],
+}
+```
