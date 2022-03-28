@@ -11,6 +11,18 @@ By changing profile order
   Also, the order of these profiles corresponds to the keyboard shortcut to open
   shell such as `Ctrl+Shift+1`.  
 
+#### Change font
+Add the below under `profiles.defaults`. 
+Create `defaults` field if not exists.
+```json
+            "font":
+            {
+                "face": "CaskaydiaCove Nerd Font"
+            }
+```
+Make sure to install the font from [nerd fonts](https//www.nerdfonts.com/)
+and install it by double clicking `Caskaydia Cove Nerd Font Complete.ttf`.
+
 ### Ubuntu
 Go to ubuntu section `profiles -> list`
 
@@ -18,9 +30,6 @@ Go to ubuntu section `profiles -> list`
 1. add `"startingDirectory": "//wsl$/Ubuntu/<linux path to directory>"` to the
    section.  
    eg. `"startingDirectory": "//wsl$/Ubuntu/home/user"`
-
-#### Change font
-1. add `"fontFace": "Consolas"` to the section
 
 #### Change cursor shape
 1. add `"cursorShape": "filledBox"` to the section
