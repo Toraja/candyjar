@@ -21,3 +21,11 @@ build_name:
   script:
     - export
 ----
+
+== Trouble Shoot
+
+[unordered]
+`terraform plan` cannot be run because `HTTP remote state already locked`::
+Run `curl -X DELETE --header "PRIVATE-TOKEN:<token>" <URL>` +
+URL is displayed on CI log, which looks like below. +
+`https://<domain>/api/v4/projects/12345/terraform/state/xxx/lock`
