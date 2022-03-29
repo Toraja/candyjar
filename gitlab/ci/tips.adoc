@@ -1,21 +1,23 @@
-# GitLab CI Tips
+= GitLab CI Tips
 
-## YAML File
+== YAML File
 
-### Hide Job
+=== Hide Job
 Prepent jobs with `.` to make then hidden jobs, and they are skipped by GitLab CI/CD.
 Ref: https://docs.gitlab.com/ee/ci/jobs/index.html#hide-jobs
 eg.
-```yaml
+[source,yaml]
+----
 .hidden_job:
   script:
     - run test
-```
+----
 
-### List GitLab-CI Variables
+=== List GitLab-CI Variables
 Ref: https://docs.gitlab.com/ee/ci/variables/index.html#list-all-environment-variables
-```yaml
+[source,yaml]
+----
 build_name:
   script:
     - export
-```
+----
