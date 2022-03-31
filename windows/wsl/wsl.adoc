@@ -28,5 +28,16 @@ Refer to link:https://www.bleepingcomputer.com/news/microsoft/windows-10-wsl2-no
 * IP address is either `127.0.0.1` or one under `eth0` of `ip addr` output.
 * Change `PasswordAuthentication` to `yes` if you want to ssh with password.
 
+== Misc
+=== Connect to the Internet on VPN
+Connecting to the Internet from WSL via VPN seems to fail. Install
+link:https://github.com/sakai135/wsl-vpnkit[wsl-vpnkit] and add below to shell
+profile.
+[source,fish]
+----
+wsl.exe -d wsl-vpnkit service wsl-vpnkit start 2> /dev/null
+set -x DISPLAY host.internal:0.0
+----
+
 == Issues
 * qutebrowser crashes
