@@ -1,43 +1,53 @@
-## Configuration
-### General
-#### Change default to ubuntu
-By setting default profile  
-1. Run `uuidgen` and take a note of the output
-1. Replace the value of `defaultProfile` in `setting.json` (located at the top).
+= Windows Terminal
 
-By changing profile order  
-1. In the `profiles` section of `setting.json`, sort profiles as you like.  
-  The profile at the top will be used when the terminal is opened.  
+== Configuration
+
+=== General
+
+==== Change default shell to ubuntu
+By setting default profile::
+. Run `uuidgen` and take a note of the output
+. Replace the value of `defaultProfile` in `setting.json` (located at the top).
+
+By changing profile order::
+. In the `profiles` section of `setting.json`, sort profiles as you like. +
+  The profile at the top will be used when the terminal is opened. +
   Also, the order of these profiles corresponds to the keyboard shortcut to open
-  shell such as `Ctrl+Shift+1`.  
+  shell such as `Ctrl+Shift+1`. +
 
-#### Change font
-Add the below under `profiles.defaults`. 
-Create `defaults` field if not exists.
-```json
+==== Change default setting
+Add snippets under `profiles.defaults` to apply all shells or section for specific shell under `profiles.list`. +
+Create `profiles.defaults` field if not exists.
+
+Font::
+[source,json]
+----
             "font":
             {
                 "face": "CaskaydiaCove Nerd Font"
             }
-```
-Make sure to install the font from [nerd fonts](https//www.nerdfonts.com/)
+----
+Make sure to install the font from link:https//www.nerdfonts.com/[nerd fonts]
 and install it by double clicking `Caskaydia Cove Nerd Font Complete.ttf`.
 
-### Ubuntu
+Cursor shape::
+[source,json]
+----
+"cursorShape": "filledBox"
+----
+
+=== Ubuntu
 Go to ubuntu section `profiles -> list`
 
-#### Change starting directory
-1. add `"startingDirectory": "//wsl$/Ubuntu/<linux path to directory>"` to the
-   section.  
+==== Change starting directory
+. Add `"startingDirectory": "//wsl$/Ubuntu/<linux path to directory>"` to the
+   section. +
    eg. `"startingDirectory": "//wsl$/Ubuntu/home/user"`
 
-#### Change cursor shape
-1. add `"cursorShape": "filledBox"` to the section
-
-
-### Keybind
+=== Keybind
 Paste value of `actions` below into `setting.json`.
-```json
+[source,json]
+----
 {
     "actions":
     [
@@ -80,4 +90,4 @@ Paste value of `actions` below into `setting.json`.
         }
     ],
 }
-```
+----
