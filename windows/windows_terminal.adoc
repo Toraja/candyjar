@@ -1,5 +1,10 @@
 = Windows Terminal
 
+== Install
+
+=== Without Microsoft Store
+See link:https://github.com/microsoft/terminal#other-install-methods[Other install methods].
+
 == Configuration
 
 === General
