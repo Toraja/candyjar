@@ -30,14 +30,25 @@ Refer to link:https://www.bleepingcomputer.com/news/microsoft/windows-10-wsl2-no
 
 == Misc
 === Connect to the Internet on VPN
-Connecting to the Internet from WSL via VPN seems to fail. Install
-link:https://github.com/sakai135/wsl-vpnkit[wsl-vpnkit] and add below to shell
-profile.
+Connecting to the Internet from WSL via VPN seems to fail, but link:https://github.com/sakai135/wsl-vpnkit[wsl-vpnkit] can solve that.
+
+To install, run:
+[source,shell]
+----
+wsl --import wsl-vpnkit $env:USERPROFILE\wsl-vpnkit wsl-vpnkit.tar.gz
+----
+
+To start wsl-vpnkit automatically, add the below to shell profile.
 [source,fish]
 ----
 wsl.exe -d wsl-vpnkit service wsl-vpnkit start 2> /dev/null
 set -x DISPLAY host.internal:0.0
 ----
+You might see an error saying `/mnt/c/WINDOWS/system32/wsl.exe` is not found. +
+That is because `/mnt/c` is not mounted, and rebooting PC should solve.
+
+NOTE: wsl-vpnkit has no effect inside docker container started in WSL.
+You need Docker for Desktop.
 
 == Issues
 * qutebrowser crashes
