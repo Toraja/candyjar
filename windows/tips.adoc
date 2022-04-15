@@ -21,3 +21,8 @@ Reference: link:https://stackoverflow.com/questions/3565218/how-to-know-what-pro
 
 ==== How to hide installed programs from Programs and Features (and Apps & Features)
 See link:http://woshub.com/how-to-hide-installed-programs-from-programs-and-features/[this website]
+
+==== Prevent apps from pinning themselves
+. Open file `C:\Users\Default\AppData\Local\Microsoft\Windows\Shell\LayoutModification.xml`
+. Find `CustomTaskbarLayoutCollection` tag
+. Remove the entries inside `TaskbarPinList`
