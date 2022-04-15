@@ -1,0 +1,23 @@
+= Windows Tips
+
+==== How to find out which process is using a file/directory
+
+Install `handle.exe`::
+
+Usage (for 64bit PC):
+[source,shell]
+----
+handle64.exe <filename>
+----
+
+Use built-in `Resource Monitor`::
+
+. Open `Resource Monitor`
+. Select `CPU` tab
+. Enter file name into the textbox on `Associated Handles` and press "Enter" +
+  -> Processes using the file will be displayed.
+
+Reference: link:https://stackoverflow.com/questions/3565218/how-to-know-what-process-is-using-a-given-file[filesystems - Find out which process is locking a file or folder in Windows - Super User]
+
+==== How to hide installed programs from Programs and Features (and Apps & Features)
+See link:http://woshub.com/how-to-hide-installed-programs-from-programs-and-features/[this website]
