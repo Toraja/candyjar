@@ -20,7 +20,7 @@ By changing profile order::
   Also, the order of these profiles corresponds to the keyboard shortcut to open
   shell such as `Ctrl+Shift+1`. +
 
-==== Change default setting
+==== Profile setting
 Add snippets under `profiles.defaults` to apply all shells or section for specific shell under `profiles.list`. +
 Create `profiles.defaults` field if not exists.
 
@@ -39,6 +39,12 @@ Cursor shape::
 [source,json]
 ----
 "cursorShape": "filledBox"
+----
+
+Color scheme::
+[source,json]
+----
+"colorScheme": "Campbell"
 ----
 
 === Ubuntu
