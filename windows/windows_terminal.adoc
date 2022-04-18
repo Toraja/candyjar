@@ -9,6 +9,12 @@ See link:https://github.com/microsoft/terminal#other-install-methods[Other insta
 
 === General
 
+==== Always open maximised
+Add below to the top layer.
+[source,json]
+----
+    "launchMode": "maximized"
+----
 ==== Change default shell to ubuntu
 By setting default profile::
 . Run `uuidgen` and take a note of the output
