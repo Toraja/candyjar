@@ -31,15 +31,18 @@ Add snippets under `profiles.defaults` to apply all shells or section for specif
 Create `profiles.defaults` field if not exists.
 
 Font::
+To use font that can display glyphs, intall fonts of your choise from link:https//www.nerdfonts.com/[nerd fonts]. +
+To install, donwload a font, extract it and double click one of `ttf/otf` file. +
+Then add fields like below to `settings.json`.
 [source,json]
 ----
             "font":
             {
-                "face": "CaskaydiaCove Nerd Font"
+                "face": "<Font name>"
             }
 ----
-Make sure to install the font from link:https//www.nerdfonts.com/[nerd fonts]
-and install it by double clicking `Caskaydia Cove Nerd Font Complete.ttf`.
+`<Font name>` is what is displayed on OS Fonts setting. +
+`CaskaydiaCove` looks best but the down side is that it renders `.=`, `!=` and etc.
 
 Cursor shape::
 [source,json]
