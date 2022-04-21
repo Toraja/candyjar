@@ -27,3 +27,19 @@ See link:http://woshub.com/how-to-hide-installed-programs-from-programs-and-feat
   If this does not work, modify `C:\Users\Default\AppData\Local\Microsoft\Windows\Shell\LayoutModification.xml`
 . Find `CustomTaskbarLayoutCollection` tag
 . Remove the entries inside `TaskbarPinList`
+
+==== Create short cut launching via powershell
+Icon of shortcuts for some program (eg. Microsoft Edge, Google Chrome) which are pinned to start menu somehow remains unchanged even when you change it via `properties`. +
+A workaround is start such program via powershell. +
+
+.Example
+[source,powershell]
+----
+C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -WindowStyle Hidden -Command "Start-Process ${env:ProgramFiles(x86)}\Microsoft\Edge\Application\msedge.exe -Args www.bing.com"
+----
+
+==== Change icon of program / shortcut to any image
+. Copy and paste image into `paint` program.
+. Save the image as bitmap (BMP).
+. Rename and change the extension of the image to `ico`.
+. Select the image as icon.
