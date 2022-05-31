@@ -1,0 +1,50 @@
+= Cargo test
+
+== Integration test
+
+Integration tests are stored in `tests` directory next to `src` directory. +
+By default, the file name of integration test needs to be `integration.rs`. +
+It can be changed by specifying in `Cargo.toml` like:
+[source,toml]
+----
+[[test]]
+path = "tests/another.rs"
+----
+
+=== Disable integration test by default
+
+Add below to `Cargo.toml`.
+
+[source,toml]
+----
+[[test]]
+name = "integration"
+test = false
+----
+
+`name` can be anything arbitrary. This is used as an argument for `--test` flag. +
+By setting `test = false`, the test is not run unless specified in `--test` flag. +
+With the above configuration, the below is how to run tests separately (or
+altogether).
+
+Run unit tests only::
+`cargo test`
+
+Run integration tests only::
+`cargo test --test integration`
+
+Run both unit and integration tests::
+`cargo test --lib --bins --test integration`
+
+If you run those command in super (parent) crate while the integration tests
+are in sub (child) crate, add `--workspace` flag to run all tests, or `-p` flag
+to specify a sub crate. Otherwise, those integration tests are not run. +
+(That should be obvious as `cargo test` only run tests in the currenty crate)
+
+Note that doc tests are not run except for the first case. You need to specify
+`--doc` flag explicitly.
+
+Also note that with `--all-targets` flag, integration tests are not run even
+with `--test integration` flag. +
+My guess is `--all-targets` flag enables `--tests` flag and it only runs tests
+that are `test = true` in `Cargo.toml`.
