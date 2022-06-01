@@ -1,5 +1,46 @@
 = Cargo test
 
+== Run test selectively
+
+=== Using feature
+Use conditional compilation of rust to build (thus run) tests conditionally. +
+There are 2 ways; module basis and function basis. +
+Either way, features must be added to `Cargo.toml` like: +
+[source,toml]
+----
+[features]
+awesome = []
+----
+
+==== Module
+Add below to test module to run the whole tests in the module only when the
+feature is enabled. +
+[source,rust]
+----
+#[cfg(all(test, feature = "awesome"))]
+----
+
+If you have tests that need to be run by default, you can add regular test
+modules.
+
+Disadvantage is that it is difficult to run the tests with that feature only. +
+Tests without feature are always run. To prevent that, you need to add feature
+to those test as well. +
+That is impractical when you run the tests of whole workspace.
+
+==== Function
+Add below to test functions that you want to run only when the feature is
+enabled.
+[source,rust]
+----
+#[cfg_attr(not(feature = "awesome"), ignore)]
+----
+
+This is basically same as `#[ignore]` except that those tests are also run when
+the feature is enabled. +
+So, like `#[ignore]`, the you can choose to run those tests or not by
+specifying `-- --ignored` or `-- --include-ignored` flag.
+
 == Integration test
 
 Integration tests are stored in `tests` directory next to `src` directory. +
