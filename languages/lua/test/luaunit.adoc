@@ -1,0 +1,25 @@
+= LuaUnit
+:toc:
+
+== Write test
+NOTE: This is what I currently do and not necessarily the best practise.
+
+The below is snippets of test code.
+[source,lua]
+----
+lu = require('luaunit')
+-- import your module to test
+add = require('add')
+
+-- add your test cases
+
+function test_add()
+    lu.assertEquals(add.two(3), 5)
+end
+
+-- execute tests
+os.exit(lu.LuaUnit.run())
+----
+
+== Run test
+Run `lua <test file>`.

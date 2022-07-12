@@ -1,0 +1,7 @@
+= Lua
+:toc:
+
+== Package Manager
+Use `luarock`. +
+Run `luarock init` to initialise a project. +
+Go to `xref:./luarock.adoc` for more detail.

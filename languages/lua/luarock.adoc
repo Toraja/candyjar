@@ -1,0 +1,13 @@
+= luarocks
+:toc:
+
+== Init project
+Like many other package managers, `luarocks` requires some fixture to start up. +
+`luarocks` has a convenient command to prepare that and simply run `luarocks init`.
+
+== Install rocks
+
+=== Install project dependencies
+In case you start working on an existent project, you need to download all the
+project's dependencies. +
+To do so, run `luarocks install --deps-only <rockspec file>`.
