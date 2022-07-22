@@ -11,3 +11,16 @@ Like many other package managers, `luarocks` requires some fixture to start up. 
 In case you start working on an existent project, you need to download all the
 project's dependencies. +
 To do so, run `luarocks install --deps-only <rockspec file>`.
+
+== Troubleshoot
+
+Installed rocks are not found::
+If lua and luarocks are not installed in the default location (i.e.
+`/usr/local`), lua cannot find installed rocks. +
+Run below commands to so that lua/luarocks can recognise the rocks. +
++
+[source,shell]
+----
+eval "$(luarocks path --bin)"
+----
+For more detail, read link:https://github.com/luarocks/luarocks/wiki/Using-LuaRocks[Using-LuaRocks].
