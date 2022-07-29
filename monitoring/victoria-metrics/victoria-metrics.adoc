@@ -1,0 +1,55 @@
+= VictoriaMetrics
+:toc:
+
+== Components
+
+=== Internal
+Components VictoriaMetrics provides.
+
+==== vmagent
+Doc: https://docs.victoriametrics.com/vmagent.html +
+A scraper which scrapes from targets such as `node_exporter`. `vmagent` also
+accepts metrics via push protocol.
+
+==== vmalert
+Doc: https://docs.victoriametrics.com/vmalert.html +
+Decides if alerts needs to be raised. `vmalert` relies on alert manager and
+alerts themselves are sent by alert manager.
+
+==== vmstorage
+Doc: https://docs.victoriametrics.com/Cluster-VictoriaMetrics.html#architecture-overview
+Stores the raw data and returns the queried data on the given time range for
+the given label filters.
+
+==== vmselect
+Doc: https://docs.victoriametrics.com/Cluster-VictoriaMetrics.html#architecture-overview
+Performs incoming queries by fetching the needed data from all the configured
+`vmstorage` nodes.
+
+==== vminsert
+Doc: https://docs.victoriametrics.com/Cluster-VictoriaMetrics.html#architecture-overview
+Accepts the ingested data and spreads it among `vmstorage` nodes according to
+consistent hashing over metric name and all its labels.
+
+==== vmauth
+Authentication proxy, router and load balancer. `vmauth` reads credential from
+`Authorization` http header, (basic auth, bearer token and Influx DB
+authorization are suppored) and matches them against configs pointed by
+`-auth.config` command-line flag. The file format is illustrate
+link:https://docs.victoriametrics.com/vmauth.html#auth-config[here]. If a match
+is found, `vmauth` proxies incoming HTTP requests to the configured per-user
+`url_prefix`. +
+With helm chart, the config is mounted as secret.
+
+=== External
+Components which VictoriaMetrics does not provide but often used together.
+
+==== Visualisation tool
+
+===== Grafana
+De facto standard.
+
+==== Alert manager
+
+=== API URL
+Doc: https://docs.victoriametrics.com/Cluster-VictoriaMetrics.html#url-format
