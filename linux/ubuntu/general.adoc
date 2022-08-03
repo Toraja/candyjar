@@ -1,0 +1,11 @@
+= Ubuntu
+:toc:
+
+== dist-upgrade
+link:https://ubuntu.com/server/docs/upgrade-introduction[Update Procedure]
+
+[NOTE]
+====
+LTS to LTS upgrade is not available until the first point release. +
+Refer to the link:https://wiki.ubuntu.com/Releases[release schedule] for when it becomes available
+====
