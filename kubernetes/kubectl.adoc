@@ -25,6 +25,13 @@ set mylist key1=val1 key2=val2
 kubectl create configmap testmap1 --from-literal=$mylist
 ----
 
+Rebooting pod::
+To reboot all pods in a deployment, run:
+[source,shell]
+----
+kubectl rollout restart deployment <deployment name>
+----
+
 Debug pod::
 Use ephemeral container to debug. +
 This is enabled by default on kubernetes v1.23 and later. For 1.22 and prior to
@@ -36,3 +43,6 @@ kubectl debug -it <pod name> --image=<image>
 # run with arguments arguments
 kubectl debug -it <pod name> --image=<image> -- <arguments..>
 ----
+Note that the ephemeral containers created by `kubectl debug` command remain as
+long as the pod exists (and viewable via `kubectl describe` etc). They will
+disappear when the pods are deleted/restarted.
