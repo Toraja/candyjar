@@ -1,27 +1,5 @@
 # Kubernetes in general
 
-## Kubectl
-### Installation
-Refer to [this
-page](https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/)
-
-### Useful Commands
-**Pass multiple file to command**  
-For commands that takes `-f` or `--filename` option (`apply` etc.), pass multiple file by
-concatenating them with `,`.
-```fish
-kubectl apply -f deployment.yml,service.yml
-kubectl apply --filename=deployment.yml,service.yml
-```
-
-Note that `configmap` does not allow csv syntax, but understands the shell
-array/list instead. The blow command creates `configmap` with two entries.
-```fish
-# this works on fish
-set mylist key1=val1 key2=val2
-kubectl create configmap testmap1 --from-literal=$mylist
-```
-
 ## Good (if not best) Practice
 ### ConfigMap
 #### Access updated value without restart

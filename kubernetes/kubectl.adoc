@@ -1,0 +1,38 @@
+= Kubectl
+:toc:
+
+== Installation
+Refer to link:https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/[this page].
+
+== Useful Commands
+Pass multiple file to command::
+For commands that takes `-f` or `--filename` option (`apply` etc.), pass multiple file by
+concatenating them with `,`.
++
+[source,shell]
+----
+kubectl apply -f deployment.yml,service.yml
+kubectl apply --filename=deployment.yml,service.yml
+----
++
+Note that `configmap` does not allow csv syntax, but understands the shell
+array/list instead. The blow command creates `configmap` with two entries.
++
+[source,fish]
+----
+# this works on fish
+set mylist key1=val1 key2=val2
+kubectl create configmap testmap1 --from-literal=$mylist
+----
+
+Debug pod::
+Use ephemeral container to debug. +
+This is enabled by default on kubernetes v1.23 and later. For 1.22 and prior to
+it, you need to enable it manually. +
++
+[source,shell]
+----
+kubectl debug -it <pod name> --image=<image>
+# run with arguments arguments
+kubectl debug -it <pod name> --image=<image> -- <arguments..>
+----
