@@ -1,0 +1,14 @@
+= Golang Tools
+:toc:
+
+== Visualise dependency
+link:https://github.com/kisielk/godepgraph[godepgraph] generates dependency
+graph of packages in Graphviz dot format. +
+[source,shell]
+.Usage sample
+----
+cd <dir in which go.mod located?>
+# -s ignores standart libraries
+# -o inlucde only specified package
+godepgraph -s -o <package prefix> <package to view dependency>
+----
