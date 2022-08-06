@@ -24,11 +24,6 @@
 * [Xubuntu](#xubuntu)
   * [Execute script after logout](#execute-script-after-logout)
   * [Add startup application](#add-startup-application)
-* [GUI](#gui)
-  * [Switch between with and without GUI](#switch-between-with-and-without-gui)
-    * [Change default setting (start up with or whithout GUI)](#change-default-setting-start-up-with-or-whithout-gui)
-    * [Start and kill X on demand](#start-and-kill-x-on-demand)
-  * [Change the directory path for Gui (Desktop, Downloads, Music and etc)](#change-the-directory-path-for-gui-desktop-downloads-music-and-etc)
 
 <!-- vim-markdown-toc -->
 
@@ -146,54 +141,3 @@ Create a new script in /etc/init.d/myscript
 
 
 [Reference](http://askubuntu.com/questions/228304/how-do-i-run-a-script-at-start-up)
-
-
-## GUI
-<mark>NOTE</mark> <span style="color: ">The below is all for CentOS. Path and commands might
-differ in other OS</span>  
-### Switch between with and without GUI
-#### Change default setting (start up with or whithout GUI)
-`systemctl get-default` (get current mode)  
-`systemctl set-default multi-user.target` (no gui)  
-`systemctl set-default graphical.target` (with gui)  
-
-Reference: [How to boot CentOS 7 into Command Line or GUI Mode | The WP
-Guru](https://wpguru.co.uk/2016/11/how-to-boot-centos-7-into-command-line-or-gui-mode/)
-
-#### Start and kill X on demand
-(If this does not work, you need display manager such as kdm)
-- Start  
-  `echo "exec <Desktop Environment>" >> ~/.xinitrc`  
-  `startx`  
-  Desktop Environment:
-  - gnome-session (Gnome 3)
-  - startkde
-  - /usr/bin/xxx-session
-- Stop  
-  <span style="color: red">Do not go back to 1st workspace after doing these as it gets stuck.</span>
-  - Press `Ctrl + Alt + F2` (enter cli in 2nd workspace)  
-  - `service gdm status` (check if gnome is running)  
-  - `service gdm stop` (stop GUI)  
-  - `ps -e | grep gnome` (check if gnome process is running)  
-
-    Reference:  
-- [gui - How to install Desktop Environments on CentOS 7? - Unix & Linux Stack Exchange
-  ](http://unix.stackexchange.com/questions/181503/how-to-install-desktop-environments-on-centos-7)  
-- [linux - CentOS 7 how to stop / start Gnome desktop from command line - Stack Overflow
-  ](http://stackoverflow.com/questions/39012285/centos-7-how-to-stop-start-gnome-desktop-from-command-line)  
-- For KDE: [Restart KDE Plasma Without Rebooting the Computer](https://www.lifewire.com/kubuntu-p2-2202573)
-
-
-### Change the directory path for Gui (Desktop, Downloads, Music and etc)
-Edit `~/.config/user-dirs.dirs`  
-Example:  
-```sh
-XDG_DESKTOP_DIR="$HOME/guidirs/Desktop"
-XDG_DOWNLOAD_DIR="$HOME/guidirs/Downloads"
-XDG_TEMPLATES_DIR="$HOME/guidirs/Templates"
-XDG_PUBLICSHARE_DIR="$HOME/guidirs/Public"
-XDG_DOCUMENTS_DIR="$HOME/guidirs/Documents"
-XDG_MUSIC_DIR="$HOME/guidirs/Music"
-XDG_PICTURES_DIR="$HOME/guidirs/Pictures"
-XDG_VIDEOS_DIR="$HOME/guidirs/Videos"
-```

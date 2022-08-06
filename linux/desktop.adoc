@@ -1,0 +1,64 @@
+= Desktop
+:toc:
+
+[NOTE]
+====
+The below is all for CentOS. Path and commands might differ in other OS.
+====
+
+== Switch between with and without desktop
+
+=== Change default setting (start up with or whithout desktop)
+
+Get current mode::
+`systemctl get-default`
+Without desktop::
+`systemctl set-default multi-user.target`
+With desktop::
+`systemctl set-default graphical.target`
+
+Reference: link:https://wpguru.co.uk/2016/11/how-to-boot-centos-7-into-command-line-or-gui-mode/[How to boot CentOS 7 into Command Line or GUI Mode | The WP Guru]
+
+=== Start and kill X server on demand
+
+NOTE: If the below does not work, you need display manager such as kdm.
+
+==== Start
+
+* Add `exec <Desktop Environment>` to `~/.xinitrc`
+* Examples of `<Desktop Environment>` are:
+** gnome-session (Gnome 3)
+** startkde
+** /usr/bin/xxx-session
+
+==== Stop
+
+WARNING: Do not go back to 1st workspace after doing these as it gets stuck.
+
+* Press `Ctrl + Alt + F2` (enter cli in 2nd workspace)
+* Run `service gdm status` (check if gnome is running)
+* Run `service gdm stop` (stop GUI)
+* Run `ps -e | grep gnome` (check if gnome process is running)
+
+Reference:
+
+* link:http://unix.stackexchange.com/questions/181503/how-to-install-desktop-environments-on-centos-7[gui - How to install Desktop Environments on CentOS 7? - Unix & Linux Stack Exchange]
+* link:http://stackoverflow.com/questions/39012285/centos-7-how-to-stop-start-gnome-desktop-from-command-line[linux - CentOS 7 how to stop / start Gnome desktop from command line - Stack Overflow]
+* For KDE: link:https://www.lifewire.com/kubuntu-p2-2202573[Restart KDE Plasma Without Rebooting the Computer]
+
+
+== Change the directory path for Gui (Desktop, Downloads, Music and etc)
+
+Edit `~/.config/user-dirs.dirs`
+[source,shell]
+.Example
+----
+XDG_DESKTOP_DIR="$HOME/guidirs/Desktop"
+XDG_DOWNLOAD_DIR="$HOME/guidirs/Downloads"
+XDG_TEMPLATES_DIR="$HOME/guidirs/Templates"
+XDG_PUBLICSHARE_DIR="$HOME/guidirs/Public"
+XDG_DOCUMENTS_DIR="$HOME/guidirs/Documents"
+XDG_MUSIC_DIR="$HOME/guidirs/Music"
+XDG_PICTURES_DIR="$HOME/guidirs/Pictures"
+XDG_VIDEOS_DIR="$HOME/guidirs/Videos"
+----
