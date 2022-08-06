@@ -1,0 +1,150 @@
+= Tips for Linux
+:toc:
+
+== Proxy
+NOTE: Use URL encoding for special characters (e.g. %20 for Spaces)
+
+Setting environment variable as below generally works.
+[source,shell]
+----
+export http_proxy='http://[<user>:<password>]@<proxyhost>[:<port>]'
+export https_proxy='https://[<user>:<password>]@<proxyhost>[:<port>]'
+----
+
+However, for commands that requires `sudo`, since `sudo` will be executed not
+in sub-session but in totally separate session, use `sudo -E`. +
+(`-E` option preserve the environment of the current session) +
+
+=== curl
+
+Use option.
+[source,shell]
+----
+curl -x 'http[s]://[<user>:<password>]@<proxyhost>[:<port>]'
+----
+
+=== apt
+
+Add below to `/etc/apt/apt.conf`.
+[source,aptconf]
+----
+Acquire::http::Proxy "http://[<user>:<password>]@<proxyhost>[:<port>]";
+Acquire::https::Proxy "https://[<user>:<password>]@<proxyhost>[:<port>]";
+----
+
+=== yum
+
+Add below to `/etc/yum.conf`.
+[source,ini]
+----
+[main]
+proxy=http://<Proxy-Server-IP-Address>:<Proxy_Port>
+proxy_username=<Proxy-User-Name>
+proxy_password=<Proxy-Password>
+----
+
+=== pip/easy_install
+
+Same as xref:curl[curl]. +
+(On Ubuntu, `--proxy` option does not work apparently.) +
+
+
+== User
+
+=== Add user to sudoers +
+`usermod -aG wheel <username>`
+
+
+== Networking
+
+=== Assign static IP address +
+Edit `/etc/sysconfig/network-scripts/ifcfg-*interface name`.
+
+Reference:
+
+* [11.1 About Network Interfaces](https://docs.oracle.com/cd/E37670_01/E41138/html/ol_about_netconf.html) +
+* [FAQ/CentOS6 - CentOS Wiki](https://wiki.centos.org/FAQ/CentOS6) +
+* [13.2. Interface Configuration Files](https://www.centos.org/docs/5/html/Deployment_Guide-en-US/s1-networkscripts-interfaces.html) +
+
+== CLI only mode
+
+=== Increase font size
+Run `setfont <font>`. +
+Available fonts and my favorite font for each OS are:
+
+[cols="1,1,1" options="header"]
+|===
+| OS
+| Path
+| Favorite
+
+| CentOS
+| /lib/kbd/consolefonts
+| sun12x22
+|===
+
+Add the code below to `.bashrc`. +
+In cli mode, `$TERM` is *linux*, while cygwin via ssh access is *xterm*. +
+[source,shell]
+----
+if [[ $TERM = "linux" ]]; then
+  setfont <font>
+fi
+----
+
+=== Supperss visual bell
+[source,shell]
+----
+set bell-style none
+----
+(executing on the command line does not work but putting in inputrc does) +
+
+=== Increase command line width
+
+NOTE: This might differ in OS other than CentOS.
+
+* Open `/etc/default/grub` and add `vga=791` to `GRUB_CMDLINE_LINUX` +
+  (791 means 1024x768x16. This is the largest resolution supported) +
+* Run `grub2-mkconfig -o /boot/grub2/grub.cfg` (make sure to backup original cfg file with `cp -a`) +
+* Reboot +
+
+=== Copy and paste text on console
+use `screen` command. +
+
+
+== Ubuntu
+
+=== Timezone
+
+Change timezone::
+`sudo timedatectl set-timezone <time-zone>`
+List all timezone options::
+`timedatectl list-timezones`
+
+== CentOS
+
+=== Update package management cached
+`yum makecache fast`
+
+== Xubuntu
+
+=== Execute script after logout
+
+NOTE: Not before the logout so that controlling application cannot be done via this method.
+
+. Write a script which you want to be executed
+. Add `session-cleanup-script=/path/to/script` to `/etc/xdg/xdg-xubuntu/lightdm/lightdm-gtk-greeter.conf`
+
+Reference:
+
+* http://askubuntu.com/questions/293312/execute-a-script-upon-logout-reboot-shutdown-in-ubuntu
+
+=== Add startup application / script
+
+Application::
+Add application to `/etc/xdg/autostart/`
+
+Script::
+Add your scripts under `/etc/init.d/`
+
+link:http://askubuntu.com/questions/228304/how-do-i-run-a-script-at-start-up[Reference]
