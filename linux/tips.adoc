@@ -1,6 +1,15 @@
 = Tips for Linux
 :toc:
 
+== Sudo
+
+Become root with the environment of current user::
+`sudo -E su -p` +
+With this, vim even loads the plugins.
+
+Not possible to source profile::
+All profiles are for interactive session, so `sudo <command>` does not source profiles.
+
 == Proxy
 NOTE: Use URL encoding for special characters (e.g. %20 for Spaces)
 
