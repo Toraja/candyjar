@@ -45,4 +45,10 @@ kubectl debug -it <pod name> --image=<image> -- <arguments..>
 ----
 Note that the ephemeral containers created by `kubectl debug` command remain as
 long as the pod exists (and viewable via `kubectl describe` etc). They will
-disappear when the pods are deleted/restarted.
+disappear when the pods are deleted/restarted. +
+When exiting ephemeral container, `kubectl` outputs below command saying that
+you can reconnect to the ephemeral container. +
+`kubectl attach -it <pod name> -c <container name>` +
+However, if you exit the container, it ususally stops running and you will not
+be able to reconnect to it. You might be able to reconnect if you detach from
+the container by pressing `Ctrl-P Ctrl-Q`.
