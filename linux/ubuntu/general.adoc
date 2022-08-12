@@ -9,3 +9,13 @@ link:https://ubuntu.com/server/docs/upgrade-introduction[Update Procedure]
 LTS to LTS upgrade is not available until the first point release. +
 Refer to the link:https://wiki.ubuntu.com/Releases[release schedule] for when it becomes available
 ====
+
+[CAUTION]
+====
+During the upgrade, you might be prompted to keep the current config files or
+replace them with new ones. +
+A good rule of thumb is to always keep the current config, while noting the
+difference. Then apply the difference when the upgrade is all done. +
+Otherwise you might end up feeling miserable because you cannot login the
+server (or because of some other things).
+====
