@@ -69,8 +69,14 @@ set -x DISPLAY host.internal:0.0
 You might see an error saying `/mnt/c/WINDOWS/system32/wsl.exe` is not found. +
 That is because `/mnt/c` is not mounted, and rebooting PC should solve.
 
-NOTE: wsl-vpnkit has no effect inside docker container started in WSL.
-You need Docker for Desktop.
+[NOTE]
+====
+wsl-vpnkit has no effect inside docker container started in WSL.
+You need Docker for Desktop. +
+*2022/08/12:* Seems like it is possible to access the internet from inside
+containers. Some say docker's network mode has to be `host`, but it worked
+without `host`.
+====
 
 == Issues
 * qutebrowser crashes
