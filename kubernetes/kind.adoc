@@ -1,0 +1,8 @@
+= Kind
+:toc:
+
+== Tips
+Access to another cluster::
+Port forward on cluster to be accessed: `kubectl port-forward service/nginx-service <external port>:<internal port> [-n <namespace>]` +
+`kind` uses docker, and docker uses default subdomain 172.17.0.0/16, and assign the pods IP address 172.17.X.X.
+Host machine can be accessed using IP address `172.17.0.1`, so from inside cluster, access `172.17.0.1`.
