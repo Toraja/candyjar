@@ -1,0 +1,8 @@
+= Helmfile
+
+== Troubleshoot
+
+Config not found::
+As with other kubernetes related tools, `helmfile` reads `KUBECONFIG` environment variable.
+If `KUBECONFIG` is relative path, and helmfile is run with `-f/--file` option,
+`helmfile` will look for kubeconfig file relative to the path specified in the option.
