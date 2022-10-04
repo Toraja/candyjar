@@ -33,6 +33,39 @@ job_name:
     - export
 ----
 
+=== Yaml anchor vs `extends`
+
+`extends` seems a better choice as long as it can achieve what you want to do, especially if you want template a whole job. +
+With yaml anchor, merging properties is NOT as granular as `extends`. +
+In the example below, `variables` in `job1` overwrites the `variables` in `.tmpl` entirely and only `$FRUIT` will be available. +
+On the other hand, `variables` in `job2` only overwrites the `variables` in
+`.tmpl` with the same key, hence, both `$FRUIT` and `$VEGETABLE` will be
+available. +
+
+.Example
+[source,yaml]
+----
+.tmpl: &tmpl
+  variables:
+    FRUIT: apple
+    VEGETABLE: spinach
+  script:
+    - echo $FRUIT
+    - echo $VEGETABLE
+
+job1:
+  <<: *tmpl
+  variables:
+    FRUIT: lemon
+
+job2:
+  extends: .tmpl
+  variables:
+    FRUIT: peach
+----
+
+Yaml anchor is more suitable for sharing smaller part of configuration.
+
 == Trouble Shoot
 
 [unordered]
@@ -41,3 +74,24 @@ job_name:
 Run `curl -X DELETE --header "PRIVATE-TOKEN:<token>" <URL>` +
 URL is displayed on CI log, which looks like below. +
 `https://<domain>/api/v4/projects/12345/terraform/state/xxx/lock`
+
+== Misc
+
+[unordered]
+Docker images built during CI with DinD are not shared between jobs::
+
+It might be obvious, but with DinD, since docker socket differs between jobs,
+docker in one job cannot find images built in another job.
+
+Job execution order::
+
+Normally, a job in a stage does not run until all the jobs in the previous stage completes. +
+With link:https://docs.gitlab.com/ee/ci/yaml/#needs[needs], the job runs as
+soon as the job specified in needs completes even if the jobs in previous
+stages have not yet completed. +
+Use `needs: []` to indicate that the job can run as soon as CI runner can accomodate it. +
+(When CI runner can run depends on the concurrency setting and whehter long running jobs are occupying CI runner.) +
+If multiple jobs in different stages have `needs: []`, the jobs in earlier stages gets executed first. +
+
+Pipeline for MR::
+Pipeline is not created when MR is created. It only inherits the pipeline of the branch.
