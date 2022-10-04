@@ -3,21 +3,32 @@
 == YAML File
 
 === Hide Job
-Prepent jobs with `.` to make then hidden jobs, and they are skipped by GitLab CI/CD.
-Ref: https://docs.gitlab.com/ee/ci/jobs/index.html#hide-jobs
-eg.
+
+Prepend jobs with `.` to make them hidden jobs, and they are skipped by GitLab CI/CD. +
+Ref: https://docs.gitlab.com/ee/ci/jobs/index.html#hide-jobs +
+This is useful for defining jobs that are intended to be extended.
+
+.Example
 [source,yaml]
 ----
 .hidden_job:
   script:
-    - run test
+    - echo $VAR
+
+some_job:
+  extends: .hidden_job
+  variables:
+    VAR: bonjour
 ----
 
 === List GitLab-CI Variables
+
 Ref: https://docs.gitlab.com/ee/ci/variables/index.html#list-all-environment-variables
+
+.Example
 [source,yaml]
 ----
-build_name:
+job_name:
   script:
     - export
 ----
@@ -26,6 +37,7 @@ build_name:
 
 [unordered]
 `terraform plan` cannot be run because `HTTP remote state already locked`::
+
 Run `curl -X DELETE --header "PRIVATE-TOKEN:<token>" <URL>` +
 URL is displayed on CI log, which looks like below. +
 `https://<domain>/api/v4/projects/12345/terraform/state/xxx/lock`
