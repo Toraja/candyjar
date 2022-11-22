@@ -1,0 +1,41 @@
+= Kubernetes Agent Server
+
+== Description
+You can connect you kubernetes clusters to GitLab, and CI/CD pipelines run with kubernetes context. +
+(Like kubeconfig is available in you CI/CD)
+
+IMO, this is more useful with GitOps flow as GitLab automatically detects changes in you IaC codes and deploy them instantly. +
+Read link:https://docs.gitlab.com/ee/user/clusters/agent/gitops.html[Using GitOps with a Kubernetes cluster] for the detail. +
+The cases that KAS would be useful with conventional CI/CD is when you have multiple projects that deploys to the same cluster. +
+By authorizing each projects, pipelines of those projects can deploy to or update the cluster. +
+
+Otherwise, if you use terraform, you can add kubeconfig to CI/CD variable via terraform and that would suffice in most of the cases.
+
+== Setup
+Ref: https://docs.gitlab.com/ee/user/clusters/agent/install/index.html
+
+* Select menu items as described on the link:https://docs.gitlab.com/ee/user/clusters/agent/install/index.html#register-the-agent-with-gitlab[page]
+* On connecting a cluster to GitLab, you can either:
+** Type an arbitrary name (e.g. name of the cluster), or
+** Select from the list. +
+  Agent will apear in the list if you have agent configuration file added to the default branch of the repository. +
+  See the below for how to add agent configuration file.
+* Agent access token and command to install gitlab-agent will be displayed. +
+  Run it to your cluster.
+
+.Add agent configuration file
+* Add `.gitlab/agents/<agent-name>/config.yaml`. +
+  The `<agent-name>` will appear in the list for connecting clusters.
+** e.g.
+*** `.gitlab/agents/stg-cluster/config.yaml`
+*** `.gitlab/agents/prd-cluster/config.yaml`
+
+== CI/CD
+To use `kubectl` in your pipeline, you must select `context` first. +
+(Otherwise `kubectl` command will times out) +
+The name of the context is `path-to-repository:agent-name`. +
+e.g. If the URL of repository is `https://<host>/greedy-cat/awesomeow` and
+agent name is `joseph`, the context name will be `greedy-cat/awesomeow:joseph`. +
+For helm/helmfile, you can set envrionment variables instead. +
+If you are unsure about the context name, run `kubectl config get-contexts` in
+the pipeline and all the available context will be output.
