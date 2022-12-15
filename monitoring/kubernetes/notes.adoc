@@ -1,0 +1,40 @@
+= Monitoring Kubernetes
+
+== Container
+cAdvisor provides container related metrics (and some node related metrics). +
+link:https://github.com/google/cadvisor/blob/master/docs/storage/prometheus.md[List of cAdvisor metrics]
+
+=== Memory
+
+Percentage of memory usage against the limit::
+[source,promql]
+----
+(container_memory_working_set_bytes / container_spec_memory_limit_bytes != inf) * 100 > 80
+----
+* `container_memory_working_set_bytes`: current memory usage by container
+* `container_spec_memory_limit_bytes`: memory limit specified in pod section of Kubernetes manifest
+
+NOTE: `container_spec_memory_limit_bytes` will be `0` if memory limit is
+not specified, either as pod spec or link:https://kubernetes.io/docs/concepts/policy/limit-range/[LimitRange].
+So the above division will always end up `infinity` and cause false alerts. +
+To avoid that, add `!= inf` to exclude such invalid calculation.
+
+== Node
+
+=== Memory
+
+Percentage of memory usage::
+[source,promql]
+----
+label_replace(
+  sum(container_memory_working_set_bytes{id="/"}) by (kubernetes_io_hostname),
+  "node", "$1", "kubernetes_io_hostname","(.+)"
+) / on(node) sum(kube_node_status_allocatable{resource="memory"}) by (node) * 100 > 80
+----
+cAdvisor provides `machine_memory_bytes` metric, but this value is like catalog
+spec and not what pods / containers on the node can actually use. +
+kube-state-metrics offers `kube_node_status_capacity`, which is same as
+`machine_memory_bytes`, and `kube_node_status_allocatable`, which is memory for pods / containers.
+
+Calculation result will match the output of `kubectl top node`. +
+`id="/"` filter is necessary to exclude memory usage of system daemons.
