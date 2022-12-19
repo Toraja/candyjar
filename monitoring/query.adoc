@@ -1,0 +1,130 @@
+= Query
+
+== Arithmetics
+
+=== Vector to vector arithmetics
+Ref: https://prometheus.io/docs/prometheus/latest/querying/operators/#one-to-one-vector-matches
+
+To perform vector to vector calculation, the metric labels (both key and value) of the left side and the right side of expression must match. +
+Suppose you have 2 metrics like below.
+
+.metrics1
+[source]
+----
+[
+  {
+    "metric": { "name": "bear", "color": "white" },
+    "value": [ 1671436048, "3" ]
+  },
+  {
+    "metric": { "name": "cat", "color": "silver"
+    }, "value": [ 1671436048, "4" ]
+  }
+  {
+    "metric": { "name": "duck", "color": "brown" },
+    "value": [ 1671436048, "2" ]
+  },
+]
+----
+
+.metrics2
+[source]
+----
+[
+  {
+    "metric": { "name": "bear", "color": "blue" },
+    "value": [ 1671436048, "3" ]
+  },
+  {
+    "metric": { "name": "cat", "color": "silver", "origin": "germany" },
+    "value": [ 1671436048, "5" ]
+  },
+  {
+    "metric": { "name": "duck", "color": "brown" },
+    "value": [ 1671436048, "4" ]
+  },
+]
+----
+
+`metric1 * metric2` will result in:
+[source]
+----
+[
+  {
+    "metric": { "name": "duck", "color": "brown" },
+    "value": [ 1671436048, "8" ]
+  }
+]
+----
+
+Note that there is only 1 element. This is because not all the labels of other
+metrics match. +
+For the metrics with `name: bear`, the value of `color` label is different.
+And for the one with `name: cat`, the metric in `metric2` has an extra label `origin`.
+Finally, for the one with `name: elephant`, the labels' values are equal but keys are different.
+
+==== Match specific labels only
+You might want to ignore some labels and do arithmetics if certain labels are equal. +
+You can do that with `on()` and `ignoring()` keywords. +
+
+In the above example, change the expression to `metric1 * on (name, color) metric2`, and you get the result below.
+
+[source]
+----
+[
+  {
+    "metric": { "name": "cat", "color": "silver", },
+    "value": [ 1671436048, "20" ]
+  },
+  {
+    "metric": { "name": "duck", "color": "brown" },
+    "value": [ 1671436048, "8" ]
+  }
+]
+----
+
+Note that only the labels you specify in `on()` remain in the result. +
+Keep in mind that if a label given to `on()` does not exist in either side of the metrics, it will not be used. +
+And if a label given to `on()` exists only one side, then no metric will match. +
+
+To achive the same with `ignoring()`, change the expression to `metric1 * ignoring (origin) metric2`. +
+Labels specified in `ignoring()` will be excluded from the result.
+
+==== Replace label during arithmetics
+Often, you need to do the math of 2 metrics that came from different sources. (e.g. cAdvisor and kube-state-metrics) +
+In such cases, a label could represent the same thing while the keys of that label are named differently. (e.g. `kubernetes_io_hostname` and `node`) +
+To calculate those metrics, use `label_replace()` to rename a label in place. +
+
+.metric3
+[source]
+----
+[
+  {
+    "metric": { "name": "elephant", "color": "grey", "kind": "african" },
+    "value": [ 1671436048, "5" ]
+  },
+]
+----
+
+.metric4
+[source]
+----
+[
+  {
+    "metric": { "name": "elephant", "color": "green", "type": "african" },
+    "value": [ 1671436048, "6" ]
+  }
+]
+----
+
+With the above example, if you set the expression as `label_replace(metric1, "type", "$1", "kind", "(.*)") * on (name, type) metric2`, the resuld will be:
+
+[source]
+----
+[
+  {
+    "metric": { "name": "elephant", "type": "african" },
+    "value": [ 1671436048, "24" ]
+  }
+]
+----
