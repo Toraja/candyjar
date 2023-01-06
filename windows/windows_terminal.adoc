@@ -44,6 +44,22 @@ Then add fields like below to `settings.json`.
 `<Font name>` is what is displayed on OS Fonts setting. +
 `CaskaydiaCove` looks best but the down side is that it renders `.=`, `!=` and etc.
 
+Font patching::
+Font included in nerd fonts might not be enough and link:https://github.com/microsoft/vscode-codicons[codicons] is required. +
+In such case, nerd fonts need to be patched. +
+Follow the instruction link:https://github.com/mortepau/codicons.nvim#how-to-patch-fonts[here]. +
+. `font-patcher` is located at root.
+. Not needed if No.3 is done.
+. You can download whole `src/glyphs` directory using link:https://downgit.evecalm.com/#/home[DownGit]. +
+  (Simply paste the URL of directory you want to download)
+. The file name is `codicon.ttf` (no plural `s`) as of 06/01/2023. +
+. -
+. Change the command as pointed out in No.4. +
+  Note that the argument to `--custom` is relative to `src/glyphs` directory.
+. Double click the patched font and install it. +
+  Though Windows Terminal rejects it.
+Install `fontforge` using `apt` or other package manager so that dependencies are automatically resolved.
+
 Cursor shape::
 [source,json]
 ----
