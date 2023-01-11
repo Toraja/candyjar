@@ -57,7 +57,7 @@ Follow the instruction link:https://github.com/mortepau/codicons.nvim#how-to-pat
 . Change the command as pointed out in No.4. +
   Note that the argument to `--custom` is relative to `src/glyphs` directory.
 . Double click the patched font and install it. +
-  Though Windows Terminal rejects it.
+  Restart seems to be required to apply the patched font to windows terminal.
 Install `fontforge` using `apt` or other package manager so that dependencies are automatically resolved.
 
 Cursor shape::
