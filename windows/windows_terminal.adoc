@@ -72,6 +72,13 @@ Color scheme::
 "colorScheme": "Campbell"
 ----
 
+Other setting::
+[source,json]
+----
+"suppressApplicationTitle": true,
+"bellStyle": "none"
+----
+
 === Ubuntu
 Go to ubuntu section `profiles -> list`
 
