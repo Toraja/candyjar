@@ -1,5 +1,17 @@
 = Query
 
+== Metrics
+
+=== List metrics for a job
+`__name__` is a metalabel for metric name. +
+Add `match[]` to filter by job name etc.
+[source]
+----
+http -A bearer -a <token> \
+https://<host>/api/v1/label/__name__/values \
+'match[]=={job="<job_name>"}'
+----
+
 == Arithmetics
 
 === Vector to vector arithmetics
