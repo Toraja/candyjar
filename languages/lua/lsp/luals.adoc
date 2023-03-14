@@ -1,0 +1,36 @@
+= LuaLS
+
+== .luarc.json
+LuaLS seems to find `.luarc.json` in the workspace and reads it. +
+If there are multiple `.luarc.json`, it seems like they are merged by keys. So
+if the same key exists in multiple files, a value in one file is overwritten by
+another. +
+Also, even if a key exists in one file only, that setting can be disabled somehow.
+
+=== workspace
+
+==== checkThirdParty
+If LuaLS detects some code from libraries it knows in your lua file, it creates
+`.luarc.json` if not exist, and adds those libraries automatically to
+`workspace.library` section. +
+It is convenient but if you have set up to add files in vim runtime path,
+absolue path of those files are also added to `.luarc.json`. +
+The path might contain some information (such as linux user name of your work)
+and if `.luarc.json` is version-controlled, you could end up publishing it to
+the world.
+
+==== library
+ref: https://github.com/LuaLS/lua-language-server/wiki/Libraries
+
+Without `library` config, LuaLS does not do complition or jump to the definition of code. +
+To manually add libraries, add entires `${3rd}/<library name>/library` as
+illustrated in the below snippets.
+[source,json]
+----
+ {
+    "workspace.library": [
+        "${3rd}/luassert/library",
+        "${3rd}/busted/library"
+    ]
+}
+----

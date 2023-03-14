@@ -12,6 +12,29 @@ In case you start working on an existent project, you need to download all the
 project's dependencies. +
 To do so, run `luarocks install --deps-only <rockspec file>`.
 
+== rockspec
+
+=== test section
+ref: https://github.com/luarocks/luarocks/wiki/test
+
+Without test section, `luarocks test` will be unable to determine which test
+runner to use, unless there is some file that help it figure out (such as
+`.busted`).
+
+`test` section requires the below be present in rockspec.
+[source,lua]
+----
+rockspec_format = "3.0"
+----
+
+Add the below to tell `luarocks` what test runner to use. +
+[source,lua]
+----
+test = {
+   type = "busted",
+}
+----
+
 == Troubleshoot
 
 Installed rocks are not found::

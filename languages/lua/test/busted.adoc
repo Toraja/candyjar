@@ -1,0 +1,17 @@
+= Busted
+
+== Test files
+`busted` commands looks for files matching `*_spec.lua` under `spec`
+directory and runs tests in them. +
+Pass file name to run tests only in that file, as in `busted <test dir/file>...`.
+
+== Writing tests
+
+=== require
+Use the relative path from the test file because:
+* Proper import path (e.g. `util.string`) will not be available unless the
+  library has been built using `luarocks make`, and it is very cumbersome run
+  the command whenever source code is modified.
+* That proper import path is also treated as if it is relative path (e.g. `./util/string.lua`), 
+  but it is unlikely for libraries as the first segment is usually the root
+  directory of the library and you would not run test from outside the root.
