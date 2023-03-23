@@ -1,0 +1,19 @@
+= blackbox exporter
+
+== Debugging
+Login to any server that can access to blackbox exporter, and query blackbox exporter with `debug=true` parameter. +
+The URL of blackbox exporter should be somewhere in you helmfile (or some config loaded by helmfile).
+
+NOTE: Adding `debug: true` to `scrape_configs.params` adds the parameter to query from vmagent to blackbox exporter. +
+But since vmagent expects the response from blackbox exporter as json but `debug` response includes non-json text, vmagent logs error messages and cannot see the debug contents.
+
+[source,yaml]
+----
+scrape_configs:
+  - job_name: 'blackbox'
+    metrics_path: /probe
+    params:
+      module: [http_2xx]
+      debug: true
+  ...
+----
