@@ -1,8 +1,13 @@
 = blackbox exporter
 
 == Debugging
-Login to any server that can access to blackbox exporter, and query blackbox exporter with `debug=true` parameter. +
-The URL of blackbox exporter should be somewhere in you helmfile (or some config loaded by helmfile).
+ref: https://www.robustperception.io/debugging-blackbox-exporter-failures/
+
+=== Manual query
+Login to blackbox exporter server, and query localhost with `debug` parameter as in: +
+`http://localhost:9115/probe?debug=true&module=http_2xx&taget=<URL of monitoring target>` +
+If the value of `target` contains query parameter, all `&` must be URL encoded to `%26` or parameters after the first `&` will be removed. +
+Also, all `%` must be encoded to `%25` so that the URL is not fully decoded before actually probing the monitoring target.
 
 NOTE: Adding `debug: true` to `scrape_configs.params` adds the parameter to query from vmagent to blackbox exporter. +
 But since vmagent expects the response from blackbox exporter as json but `debug` response includes non-json text, vmagent logs error messages and cannot see the debug contents.
@@ -17,3 +22,6 @@ scrape_configs:
       debug: true
   ...
 ----
+
+=== Command line argument
+The same info can be obtained by adding `--log.level=debug` flag.
