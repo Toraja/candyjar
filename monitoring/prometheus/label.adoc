@@ -1,0 +1,28 @@
+= Label
+:toc:
+
+== `instance` and `\\__address__` labels
+ref: https://www.robustperception.io/controlling-the-instance-label/
+
+\\__address__::
+What a scraper actually connects to.
+
+instance::
+It will be set to the value of `\\__address__` if no `instance` label is
+present after service discovery and relabelling. +
+So changing this does not affect what a scraper actually scrapes.
+
+If target address contains parameters that you do not want to store in the
+storage (e.g. security reason), relabel `instance` label instead of
+`\\__address__` label, because meta labels (which begins and ends with `__`)
+are discarded before ingested into storage. +
+
+.Example
+[source,yaml]
+----
+relabel_configs:
+ - source_labels: [__address__]
+   regex:  '^(.*)\?.*'           # Remove everything after `?` (i.e. remove all the parameters)
+   replacement: '${1}'           # URL without any parameter will be assigned to `instance` label
+   target_label: instance
+----
