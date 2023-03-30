@@ -1,6 +1,24 @@
 = Query
+:toc:
 
 == Metrics
+Using `httpie` is easier than `curl` as you do not need to escape every `=` sign inside the `query` parameter. +
+
+.Reference 
+* https://docs.victoriametrics.com/keyConcepts.html#instant-query 
+* https://docs.victoriametrics.com/keyConcepts.html#range-query
+
+.Example - instant query
+[source]
+----
+http -A bearer -a <token> https://<host>/api/v1/query 'query=={job="some_job_name"}'
+----
+
+.Example - range query
+[source]
+----
+http -A bearer -a <token> https://<host>/api/v1/query_range 'query=={job="some_job_name"}' 'start==2023-03-29T13:05:00.000Z' 'end==2023-03-29T13:15:00.000Z' 'step==1m'
+----
 
 === List metrics for a job
 `__name__` is a metalabel for metric name. +
