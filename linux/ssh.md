@@ -3,6 +3,7 @@
 ## Client
 
 ### Connect without password prompt
+#### keychain
 1. Create a pair of RSA keys on the local machine. (`ssh-keygen`)
 1. Store the private key in somewhere secure on the local machine.
 1. Add the content of the public key to the file `~/.ssh/authorized_key` of the user
@@ -13,6 +14,17 @@ or simply issue `ssh-copy-id <user>@<host>` command.
 where *pass-to-key* is the absolute path or the relative path from `~/.ssh` to the private key on
 the local machine.  
 1. SSH to the server.
+
+#### Custom ssh-askpass
+1. Create a custom ssh-askpass file which has the below contents.
+  ```sh
+  echo <password of your key>
+  ```
+1. Make it executable
+1. Run ssh command with the custom ssh-askpass
+  ```sh
+  SSH_ASKPASS_REQUIRE=force SSH_ASKPASS=<path to ssh-askpass> ssh ...
+  ```
 
 If keychain outputs warning message like below, update keychain as it is old and does not support
 OpenSSH 6.8+ format.  
