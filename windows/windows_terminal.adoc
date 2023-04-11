@@ -134,3 +134,11 @@ Paste value of `actions` below into `setting.json`.
     ],
 }
 ----
+
+=== Misc
+Prevent cursor from blinking::
+Put below in the rc file of your shell.
+[source,sh]
+----
+printf '\033[?12l'
+----
