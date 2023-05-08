@@ -32,33 +32,41 @@ Create `profiles.defaults` field if not exists.
 
 Font::
 To use font that can display glyphs, intall fonts of your choise from link:https//www.nerdfonts.com/[nerd fonts]. +
-To install, donwload a font, extract it and double click one of `ttf/otf` file. +
+To install, donwload a font, extract it and double click one of `ttf/otf` file. (`ttf` is recommended) +
 Then add fields like below to `settings.json`.
 [source,json]
 ----
             "font":
             {
                 "face": "<Font name>"
+                "features": {
+                    "liga": 0
+                }
             }
 ----
 `<Font name>` is what is displayed on OS Fonts setting. +
-`CaskaydiaCove` looks best but the down side is that it renders `.=`, `!=` and etc.
+`CaskaydiaCove` looks best. `mono` version usually does not render ligatures (such as `.=`, `!=` ), but `CaskaydiaCove` does render... +
+(Disabling font future as illustrated above does not work for `CaskaydiaCove` either, maybe it is for `otf` only.) +
+For more detail, see https://learn.microsoft.com/en-us/windows/terminal/customize-settings/profile-appearance#font.
 
 Font patching::
-Font included in nerd fonts might not be enough and link:https://github.com/microsoft/vscode-codicons[codicons] is required. +
-In such case, nerd fonts need to be patched. +
+Nerd fonts might not provide all icons and if so, you need to patch nerd fonts with link:https://github.com/microsoft/vscode-codicons[codicons]. +
 Follow the instruction link:https://github.com/mortepau/codicons.nvim#how-to-patch-fonts[here]. +
-. `font-patcher` is located at root.
+Install `fontforge` using `apt` or other package manager so that dependencies are automatically resolved. +
+The below complements each of the instruction.
+. `font-patcher` is located at the root of the repository.
 . Not needed if No.3 is done.
 . You can download whole `src/glyphs` directory using link:https://downgit.evecalm.com/#/home[DownGit]. +
-  (Simply paste the URL of directory you want to download)
+** Simply paste the URL of directory you want to download +
+** It is recommended to download the whole `src/glyphs` directory. Patching CaskaydiaCove fails if only files specified in No.2 are present.
 . The file name is `codicon.ttf` (no plural `s`) as of 06/01/2023. +
 . -
 . Change the command as pointed out in No.4. +
-  Note that the argument to `--custom` is relative to `src/glyphs` directory.
+** `<your font>` is path to font file.
+** `font-patcher` v3 requires `--makegroups 0` option.
+** The argument to `--custom` is relative to `src/glyphs` directory.
 . Double click the patched font and install it. +
-  Restart seems to be required to apply the patched font to windows terminal.
-Install `fontforge` using `apt` or other package manager so that dependencies are automatically resolved.
+** Restarting windows terminal is required to pick up the newly installed font.
 
 Cursor shape::
 [source,json]
