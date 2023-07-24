@@ -138,6 +138,22 @@ Paste value of `actions` below into `setting.json`.
                 "splitMode": "duplicate"
             },
             "keys": "alt+shift+d"
+        },
+        {
+            "command":
+            {
+                "action": "moveTab",
+                "direction": "backward"
+            },
+            "keys": "ctrl+shift+h"
+        },
+        {
+            "command":
+            {
+                "action": "moveTab",
+                "direction": "forward"
+            },
+            "keys": "ctrl+shift+l"
         }
     ],
 }
