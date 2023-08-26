@@ -64,6 +64,7 @@ The below complements each of the instruction.
 . Change the command as pointed out in No.4. +
 ** `<your font>` is path to font file.
 ** `font-patcher` v3 requires `--makegroups 0` option.
+** You might need to edit the first line of `font-pather` and change it to `python3`
 ** The argument to `--custom` is relative to `src/glyphs` directory.
 . Double click the patched font and install it. +
 ** Restarting windows terminal is required to pick up the newly installed font.
