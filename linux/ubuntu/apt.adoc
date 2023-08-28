@@ -2,11 +2,39 @@
 
 == Troubleshoot
 
-On `apt upgrade`, it says `The following packages have been kept back:` and not upgraded::
+=== On `apt upgrade`, it says `The following packages have been kept back:` and not upgraded
 Run one of the command below.
+
 [source,sh]
 ----
 sudo apt-get --with-new-pkgs upgrade
 # If the above command does not work
 sudo apt-get install <list of packages kept back>
 ----
+
+=== `apt upgrade` fails because `/boot` is nearly full
+This is often because old kernels are left undeleted, and running `sudo apt autoremove --purge` will solve. +
+(Without `--purge`, configuration files (ones under `/lib/modules`) remain undeleted.) +
+
+Some kernels cannot be deleted by the above command. +
+They might be marked as manually installed (because you `apt insatll` -ed them or something weird has happened). +
+First, list manually installed kernels by running `sudo apt-mark showmanual 'linux-image-.*'` +
+Then mark them as auto installed by `sudo apt-mark auto <kernel package names>` +
+(ref: https://help.ubuntu.com/community/RemoveOldKernels)
+
+As mentioned, configurations for kernel could be left undeleted. +
+You can check which configurations still exist by running `dpkg --list | egrep 'linux-image|linux-headers'`. +
+(Or simply look into `/lib/modules` directory). +
+All the configurations except for currently installed kernels can be deleted. +
+(If you have done the above procedures, only the necessary kernels (current and one generation older) should be left) +
+Run the command `sudo dpkg --purge <kernel package names>`. +
+(`<kernel package names>` can be `linux-image-4.12.0-12`, `linux-image-4.12.0-12-generic`, `linux-headers-4.12.0-12` and etc.)
+
+
+*FYI* +
+
+What does the first two letters in the output `dpkg --list` mean? (e.g. `ii`)::
+See https://askubuntu.com/questions/18804/what-do-the-various-dpkg-flags-like-ii-rc-mean
+
+Get currently used kernel::
+`uname -r`
