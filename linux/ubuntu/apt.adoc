@@ -3,11 +3,12 @@
 == Troubleshoot
 
 === On `apt upgrade`, it says `The following packages have been kept back:` and not upgraded
-Run one of the command below.
+Run one of the command below. +
+`apt-get --with-new-pkgs upgrade` has an advantage that it does not mark the packages as _manually installed_.
 
 [source,sh]
 ----
-sudo apt-get --with-new-pkgs upgrade
+sudo apt-get --with-new-pkgs upgrade <list of packages kept back>
 # If the above command does not work
 sudo apt-get install <list of packages kept back>
 ----
