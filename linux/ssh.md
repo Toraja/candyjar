@@ -39,6 +39,14 @@ Add as option with `-o` or edit `/etc/ssh/ssh_config`.
 #### Not storing host key to known_hosts file
 `UserKnownHostsFile=/dev/null`
 
+## Troubleshoot
+- `WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!` is displayed and cannot proceed.
+    - Remove the entry for the host from `.ssh/known_hosts` file either by:
+        - running `ssh-keygen -R '<host>'`.
+            - If the host's port differs from 22 `<host>` should include port number as in `[111.222.111.222]:10022`.
+        - simply edit `.ssh/known_hosts` file and remove the line.
+            - some hosts are encoded and hard to tell which line is for which host.
+
 ## Server (daemon)
 
 ### Setup
