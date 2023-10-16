@@ -1,0 +1,16 @@
+= TIPS
+
+Get the number of issues / MRs::
+The number is returned as `X-Total` header. +
+All issues assigned to the user which was closed during the specified span. +
+Remove `assignee_id` to get all the issues. +
+[source,sh]
+----
+http --headers 'https://<HOST>/api/v4/projects/<PROJECT_ID>/issues' "PRIVATE-TOKEN:$GITLAB_TOKEN" 'state==closed' 'updated_after==2023-04-01T00:00:00Z' 'updated_before==2023-10-01T00:00:00Z' 'per_page==1' 'assignee_id==<USER_ID>'
+----
+All MRs authored by the user which was merged during the specified span. +
+Remove `author_id` to get all the MRs or replace it with `reviewer_id==<USER_ID>` to get the nuber for reviews. +
+[source,sh]
+----
+http --headers 'https://<HOST>/api/v4/projects/<PROJECT_ID>/merge_requests' "PRIVATE-TOKEN:$GITLAB_TOKEN" 'view==simple' 'state==merged' 'updated_after==2023-04-01T00:00:00Z' 'updated_before==2023-10-01T00:00:00Z' 'per_page==1' 'author_id==<USER_ID>'
+----
