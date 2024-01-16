@@ -4,15 +4,25 @@
 
 ### Connect without password prompt
 #### keychain
-1. Create a pair of RSA keys on the local machine. (`ssh-keygen`)
+1. Create a pair of RSA keys on the local machine.
+    ```sh
+    ssh-keygen -t <algorithm> -C <description> -f [<output dir>/]<filename>
+    # e.g.
+    ssh-keygen -t ed25519 -C mypc -f ~/.ssh/foobar
+    ```
 1. Store the private key in somewhere secure on the local machine.
 1. Add the content of the public key to the file `~/.ssh/authorized_key` of the user
-on the remote machine you want to connect to,
-or simply issue `ssh-copy-id <user>@<host>` command.
-1. Add the code below to bashrc etc. of the local machine  
-`eval $(keychain --agents ssh --eval <path-to-key>)`  
-where *pass-to-key* is the absolute path or the relative path from `~/.ssh` to the private key on
-the local machine.  
+on the remote machine you want to connect to.  
+    Or you can simply run the command below on the local machine.
+    ```sh
+    ssh-copy-id <user>@<host>
+    ```
+1. On the local machine, add the code below to bashrc (or something alike),
+where `<pass-to-key>` is the absolute path or the relative path from
+`~/.ssh` to the private key.
+    ```sh
+    eval $(keychain --agents ssh --eval <path-to-key>)
+    ```
 1. SSH to the server.
 
 #### Custom ssh-askpass
