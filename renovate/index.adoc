@@ -1,0 +1,22 @@
+= Renovate
+
+== Config
+
+=== depName
+
+==== Go
+Usually module name which is present at the top of `go.mod`. +
+To monitor specific binary (or something) of the package instead of the package itself, append the `tag` for that release without version part. +
+.e.g. atlas CLI (deprecated)
+----
+# renovate: datasource=go depName=ariga.io/atlas/cmd/atlas versioning=semver
+----
+
+== Tips
+Run Renovate locally::
++
+[source,shell]
+----
+docker run --interactive --tty --rm --volume ./:/usr/src/app renovate/renovate:latest --platform=local --dry-run=full
+----
+Packages/Dependencies that are not up to date are logged as `WARN`.
