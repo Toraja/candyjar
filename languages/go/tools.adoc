@@ -1,7 +1,25 @@
 = Golang Tools
 :toc:
 
-== Visualise dependency
+== go install
+
+=== Install binary from remote (github etc.)
+.Usage
+----
+go install [build flag] <package/tool path>
+----
+.e.g.
+----
+go install github.com/onsi/ginkgo/v2/ginkgo@2.15.0
+----
+`package/tool path` consists of `<module path>/<path to main.go>[@version]`. +
+`module path` is present at the top of `go.mod`. +
+`path to main.go` is the path to `main.go` from the root of repository. +
+`version` is the version of the package/tool with `v` prefix. The latest is installed if not specified or `latest` is specified.
+
+== Nice tools
+
+=== Visualise dependency
 link:https://github.com/kisielk/godepgraph[godepgraph] generates dependency
 graph of packages in Graphviz dot format. +
 [source,shell]
