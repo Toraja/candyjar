@@ -3,8 +3,9 @@
 === Get list / the number of issues / MRs
 
 ==== Preparation
-Separator of date is `-`.
-[source,sh]
+Format of date is `YYYY-MM-DD`.
+User ID is an integer, not a string value used to mention.
+[source,fish]
 ----
 cat | read GITLAB_TOKEN
 set GITLAB_HOST
@@ -20,18 +21,19 @@ set GITLAB_USER_ID
 To get the list of issues / MR instead of just numbers, remove `--headers` flag from the command.
 
 ===== Issue
-The number is returned as `X-Total` header. +
 All issues assigned to the user which was closed during the specified span. +
+The number is returned as `X-Total` header. +
 Remove `assignee_id` to get all the issues. +
-[source,sh]
+Append `|  jq '.[] | {title, web_url}'` and adjust or remove `per_page` query to get simple list of those issues. +
+[source,fish]
 ----
 http --headers "https://$GITLAB_HOST/api/v4/projects/$GITLAB_PROJECT_ID/issues" "PRIVATE-TOKEN:$GITLAB_TOKEN" 'state==closed' "updated_after=={$DATE_AFTER}T00:00:00Z" "updated_before=={$DATE_BEFORE}T00:00:00Z" 'per_page==1' "assignee_id==$GITLAB_USER_ID"
 ----
 
 ===== MR
-All MRs authored by the user which was merged during the specified span. +
+All MRs authored by the user which were merged during the specified span. +
 Remove `author_id` to get all the MRs, or replace it with `reviewer_id==<USER_ID>` to get the number of reviews. +
-[source,sh]
+[source,fish]
 ----
-http --headers 'https://$GITLAB_HOST/api/v4/projects/$GITLAB_PROJECT_ID/merge_requests' "PRIVATE-TOKEN:$GITLAB_TOKEN" 'view==simple' 'state==merged' "updated_after=={$DATE_AFTER}T00:00:00Z" "updated_before=={$DATE_BEFORE}T00:00:00Z" 'per_page==1' "author_id==$GITLAB_USER_ID"
+http --headers "https://$GITLAB_HOST/api/v4/projects/$GITLAB_PROJECT_ID/merge_requests" "PRIVATE-TOKEN:$GITLAB_TOKEN" 'view==simple' 'state==merged' "updated_after=={$DATE_AFTER}T00:00:00Z" "updated_before=={$DATE_BEFORE}T00:00:00Z" 'per_page==1' "author_id==$GITLAB_USER_ID"
 ----
