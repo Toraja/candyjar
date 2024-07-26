@@ -1,0 +1,38 @@
+= Tips
+
+== Run ad hoc command on remote hosts
+Setup to bypass all the user prompts (confirmation, password and etc.) as they cause ansible commands to fail
+when ansible targets multiple hosts.
+
+.Add the below to your sshconfig
+[source]
+----
+Host *
+  UserKnownHostsFile /dev/null
+  StrictHostKeyChecking no
+  IdentityFile <your private ssh key>
+----
+
+If you want to be more precise, put global IP address of each remote host instead of `*`.
+(ansible accesses remote hosts via IP address)
+
+This can also be done using `ansible.cfg`
+[source]
+----
+[ssh_connection]
+ssh_args = -i <your private ssh key> -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no
+----
+
+.Setup ssh-agent
+[source,sh]
+----
+eval $(ssh-agent -s)
+ssh-add <your private ssh key>
+----
+
+.Run shell commands on each remote hosts
+[source,sh]
+----
+# e.g. Running hostname command on the specified host(s) in the inventory
+ansible -i <inventory> -m shell -a hostname <host>...
+----

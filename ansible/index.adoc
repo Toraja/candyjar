@@ -1,3 +1,4 @@
 = Ansible
 
 * ./config.adoc[config]
+* ./tips.adoc[tips]
