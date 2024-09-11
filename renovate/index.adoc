@@ -5,12 +5,13 @@
 === depName
 
 ==== Go
-Usually module name which is present at the top of `go.mod`. +
+Usually module name, which is used as `depName` is present at the top of `go.mod` file of the package. +
 To monitor specific binary (or something) of the package instead of the package itself, append the `tag` for that release without version part. +
 .e.g. atlas CLI (deprecated)
 ----
 # renovate: datasource=go depName=ariga.io/atlas/cmd/atlas versioning=semver
 ----
+Here, `ariga.io/atlas` is the module name, and `cmd/atlas` is the tag without version.
 
 == Tips
 Run Renovate locally::
