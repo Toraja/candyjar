@@ -21,3 +21,16 @@ Run Renovate locally::
 docker run --interactive --tty --rm --volume ./:/usr/src/app renovate/renovate:latest --platform=local --dry-run=full
 ----
 Packages/Dependencies that are not up to date are logged as `WARN`.
+
+Test renovate config::
+Wnen testing new `renovate.json`, it is likely to create new branch, modify `renovate.json`, then run renovate CI job. +
+By default, renovate uses the config on the default branch and scan dependencies on the default branch. +
+To instruct renovate to see another branch, you need to set environment variables. +
+Also it is useful to dry run the renovate so that pull/merge requests are not created.
++
+[source,shell]
+----
+RENOVATE_BASE_BRANCHES=<branch>
+RENOVATE_USE_BASE_BRANCH_CONFIG=merge
+RENOVATE_DRY_RUN=full
+----
