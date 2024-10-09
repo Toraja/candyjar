@@ -2,7 +2,6 @@
 :toc:
 
 == Metrics
-Using `httpie` is easier than `curl` as you do not need to escape every `=` sign inside the `query` parameter. +
 
 .Reference 
 * https://docs.victoriametrics.com/keyConcepts.html#instant-query 
@@ -11,23 +10,36 @@ Using `httpie` is easier than `curl` as you do not need to escape every `=` sign
 .Example - instant query
 [source]
 ----
-http -A bearer -a <token> https://<host>/api/v1/query 'query=={job="some_job_name"}'
+curl --silent --header "Authorization: Bearer <token>" https://<host>/api/v1/query --data-urlencode 'query=<metric>[{<filter>}]'
+
+# with httpie
+http --auth-type bearer --auth <token> https://<host>/api/v1/query 'query==<metric>[{<filter>}]'
+
+# an example of `query`: `up` metric scraped by `job_1` job
+up{job="job_1"}
 ----
 
 .Example - range query
 [source]
 ----
-http -A bearer -a <token> https://<host>/api/v1/query_range 'query=={job="some_job_name"}' 'start==2023-03-29T13:05:00.000Z' 'end==2023-03-29T13:15:00.000Z' 'step==1m'
+curl --silent --header "Authorization: Bearer <token>" https://<host>/api/v1/query \
+  --data-urlencode 'query=<metric>[{<filter>}]' \
+  --data-urlencode 'start=2023-03-29T13:05:00.000Z' \
+  --data-urlencode 'end==2023-03-29T13:15:00.000Z' \
+  --data-urlencode 'step==1m'
 ----
 
-=== List metrics for a job
+=== List metric names for a job
 `__name__` is a metalabel for metric name. +
 Add `match[]` to filter by job name etc.
 [source]
 ----
-http -A bearer -a <token> \
-https://<host>/api/v1/label/__name__/values \
-'match[]=={job="<job_name>"}'
+curl --silent --header "Authorization: Bearer <token>" https://<host>/api/v1/label/__name__/values \
+  --data-urlencode 'match[]={job="<job_name>"}'
+
+# with httpie
+http --auth-type bearer --auth <token> https://<host>/api/v1/label/__name__/values \
+  'match[]={job="<job_name>"}'
 ----
 
 == Arithmetics
