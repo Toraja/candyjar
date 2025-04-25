@@ -13,7 +13,7 @@ See link:https://github.com/microsoft/terminal#other-install-methods[Other insta
 Add below to the top layer.
 [source,json]
 ----
-    "launchMode": "maximized"
+    "launchMode": "maximized",
 ----
 ==== Change default shell to ubuntu
 By setting default profile::
@@ -38,15 +38,14 @@ Then add fields like below to `settings.json`.
 ----
             "font":
             {
-                "face": "<Font name>"
+                "face": "<Font name>",
                 "features": {
                     "liga": 0
                 }
             }
 ----
 `<Font name>` is what is displayed on OS Fonts setting. +
-`CaskaydiaCove` looks best. `mono` version usually does not render ligatures (such as `.=`, `!=` ), but `CaskaydiaCove` does render... +
-(Disabling font future as illustrated above does not work for `CaskaydiaCove` either, maybe it is for `otf` only.) +
+`CaskaydiaMono NF` looks best. `font.feature.liga` is to turn on/off ligatures (such as `.=`, `!=`), but seems not working. It might be for `otf` only. +
 For more detail, see https://learn.microsoft.com/en-us/windows/terminal/customize-settings/profile-appearance#font.
 
 Font patching::
@@ -69,23 +68,21 @@ The below complements each of the instruction.
 . Double click the patched font and install it. +
 ** Restarting windows terminal is required to pick up the newly installed font.
 
-Cursor shape::
+Cursor::
 [source,json]
 ----
 "cursorShape": "filledBox"
-----
-
-Color scheme::
-[source,json]
-----
 "colorScheme": "Campbell"
 ----
 
 Other setting::
 [source,json]
 ----
+"bellStyle": "none",
+"tabSwitcherMode": "disabled",
 "suppressApplicationTitle": true,
-"bellStyle": "none"
+"scrollbarState": "hidden",
+"trimBlockSelection": true
 ----
 
 === Ubuntu
@@ -97,67 +94,74 @@ Go to ubuntu section `profiles -> list`
    eg. `"startingDirectory": "//wsl$/Ubuntu/home/user"`
 
 === Keybind
-Paste value of `actions` below into `setting.json`.
+Replace original copy/paste keybind under `keybindings` with the below snippet.
 [source,json]
 ----
-{
-    "actions":
-    [
         {
-            "command": "unbound",
-            "keys": "ctrl+comma"
-        },
-        {
-            "command": "unbound",
-            "keys": "win+sc(41)"
-        },
-        {
-            "command":
-            {
-                "action": "copy",
-                "singleLine": false
-            },
+            "id": "Terminal.CopyToClipboard",
             "keys": "ctrl+shift+c"
         },
         {
-            "command": "find",
-            "keys": "ctrl+shift+f"
-        },
-        {
-            "command": "openTabRenamer",
-            "keys": "ctrl+shift+r"
-        },
-        {
-            "command": "paste",
+            "id": "Terminal.PasteFromClipboard",
             "keys": "ctrl+shift+v"
         },
+----
+
+Add the below to the root. `actions` field defines the functions for keybinds.
+[source,json]
+----
+    "actions": 
+    [
         {
-            "command":
-            {
-                "action": "splitPane",
-                "split": "auto",
-                "splitMode": "duplicate"
-            },
-            "keys": "alt+shift+d"
-        },
-        {
-            "command":
+            "command": 
             {
                 "action": "moveTab",
                 "direction": "backward"
             },
-            "keys": "ctrl+shift+h"
+            "id": "User.moveTab.backward"
         },
         {
-            "command":
+            "command": 
             {
                 "action": "moveTab",
                 "direction": "forward"
             },
-            "keys": "ctrl+shift+l"
+            "id": "User.moveTab.forward"
+        },
+        {
+            "command": "openTabRenamer",
+            "id": "User.openTabRenamer"
         }
     ],
-}
+----
+
+Add the below to `keybindings`.
+[source,json]
+----
+        {
+            "id": null,
+            "keys": "ctrl+comma"
+        },
+        {
+            "id": null,
+            "keys": "ctrl+shift+w"
+        },
+                {
+            "id": "User.moveTab.backward",
+            "keys": "ctrl+shift+h"
+        },
+        {
+            "id": "User.openTabRenamer",
+            "keys": "ctrl+shift+r"
+        },
+        {
+            "id": "User.moveTab.forward",
+            "keys": "ctrl+shift+l"
+        },
+        {
+            "id": null,
+            "keys": "win+sc(41)"
+        }
 ----
 
 === Misc
