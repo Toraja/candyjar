@@ -1,0 +1,31 @@
+= Hurl
+
+== Tips
+Pass stringified JSON as variable::
+With JSON body, it stringified JSON gets escaped excessively and extra backslashes are added. +
+link:https://hurl.dev/docs/request.html#multiline-string-body[multiline string body] must be used to avoid that.
+
+Stringified JSON pass via --secret not concealed in the verbose output::
+Usually the value is not present in the variable list and concealed in the parameter of curl command (replaced with `***`). +
+However, stringified JSON is printed normally in the curl parameter (maybe too complecated to conceal?)
+
+Difference between --variable and --secret::
+`--variable` strips double quotations in the given value while `--secret` preserves them. +
+So with `--secret`, the variables inside JSON payload must not be quoted if the value is already quoted.
+(e.g. stringified JSON)
++
+.Correct
+[source,json]
+----
+{
+    "foo": {{bar}}
+}
+----
++
+.Wrong
+[source,json]
+----
+{
+    "foo": "{{bar}}"
+}
+----
