@@ -23,11 +23,13 @@ docker run --interactive --tty --rm --volume ./:/usr/src/app --env LOG_LEVEL=deb
 * Updatable packages/dependencies will have non-empty `updates` json field.
 * `GITHUB_COM_TOKEN` is required to check updates for `github-releases` datasource.
 * Renovate will run as non-root user, so add `--user root` if there are files that renovate cannot read in bind-mounted files
+* If you need to `netrc`, bind-mount it as in `--volume $HOME/.netrc:/home/ubuntu/.netrc:ro`
 
 Test renovate config::
-Wnen testing new `renovate.json`, it is likely to create new branch, modify `renovate.json`, then run renovate CI job. +
+While the above method reflects the local change in `renovate.json`, you might want to make sure that it works in CI environment.
+In such cases, it is likely to create new branch, modify `renovate.json`, then run renovate CI job. +
 By default, renovate uses the config on the default branch and scan dependencies on the default branch. +
-To instruct renovate to see another branch, you need to set environment variables. +
+To instruct renovate to see another branch, set the below environment variables. +
 Also it is useful to dry run the renovate so that pull/merge requests are not created.
 +
 [source,shell]
