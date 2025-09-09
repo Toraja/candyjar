@@ -12,10 +12,12 @@ curl https://httpbin.org/ip
 > `curl ifconfig.me` is deprecated.
 
 ## Port Scanning
+
 ```sh
 nc -vz <hostname> <port>
 ```
-eg.  
+
+e.g.
 ```sh
 # single port
 nc -vz localhost 22
@@ -26,8 +28,9 @@ nc -vz localhost 1000-2000
 
 ## Proxy
 
-## Get proxy's URL on PowerShell
-```ps
+### Get proxy's URL on PowerShell
+
+```ps1
 ([System.Net.WebRequest]::GetSystemWebproxy()).GetProxy('http://google.com')
 ```
 You can use the value of `OriginalString` as `$http_proxy` and `$https_proxy` varialbe.
