@@ -11,7 +11,9 @@ curl https://httpbin.org/ip
 > [!NOTE]
 > `curl ifconfig.me` is deprecated.
 
-## Port Scanning
+## Port
+
+### Port Scanning
 
 ```sh
 nc -vz <hostname> <port>
@@ -24,6 +26,28 @@ nc -vz localhost 22
 
 # range of port
 nc -vz localhost 1000-2000
+```
+
+### List all linstening ports
+
+```sh
+sudo ss --listening --numeric --tcp --udp --processes
+```
+```
+       -l, --listening
+              Display only listening sockets (these are omitted by default).
+
+       -n, --numeric
+              Do not try to resolve service names. Show exact bandwidth values, instead of human-readable.
+
+       -t, --tcp
+              Display TCP sockets.
+
+       -u, --udp
+              Display UDP sockets.
+
+       -p, --processes
+              Show process using socket.
 ```
 
 ## Proxy
