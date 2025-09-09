@@ -3,7 +3,13 @@
 ## IP
 
 ### Get global IP address of my machine
-Run `curl ifconfig.me`
+
+```sh
+curl https://httpbin.org/ip
+```
+
+> [!NOTE]
+> `curl ifconfig.me` is deprecated.
 
 ## Port Scanning
 ```sh
