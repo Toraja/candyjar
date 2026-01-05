@@ -32,8 +32,17 @@ Create `profiles.defaults` field if not exists.
 
 Font::
 To use font that can display glyphs, intall fonts of your choise from link:https://www.nerdfonts.com/[nerd fonts]. +
-To install, donwload a font, extract it and double click one of `ttf/otf` file. (`ttf` is recommended) +
-Then add fields like below to `settings.json`.
+(`CaskaydiaMono Nerd Font` is my current favorite) +
+To install:
+* Donwload a font
+* Extract it and double click `ttf/otf` files (`ttf` is recommended)
+** There might be several font families in the extracted directory. Install all styles of the font family you want to use (eg. Regular, Bold, Italic and etc)
+*** e.g. `CaskaydiaMonoNerdFontMono-*.ttf` for `CaskaydiaMono Nerd Font`
+*** Refer to README of the font for more detail
+* Add fields like below to `settings.json`.
+** `<Font name>` is what is displayed on OS Fonts setting. Pick one from Windows Terminal Setting GUI if you are not sure. +
+** `font.feature.liga` is to turn on/off ligatures (such as `.=`, `!=`), but seems not working. It might be for `otf` only. +
++
 [source,json]
 ----
             "font":
@@ -44,11 +53,15 @@ Then add fields like below to `settings.json`.
                 }
             }
 ----
-`<Font name>` is what is displayed on OS Fonts setting. +
-`CaskaydiaMono NF` looks best. `font.feature.liga` is to turn on/off ligatures (such as `.=`, `!=`), but seems not working. It might be for `otf` only. +
 For more detail, see https://learn.microsoft.com/en-us/windows/terminal/customize-settings/profile-appearance#font.
 
 Font patching::
+[NOTE]
+====
+For my usage, the below fonts do not need patching. +
+
+* CaskaydiaMono Nerd Font
+====
 Nerd fonts might not provide all icons and if so, you need to patch nerd fonts with link:https://github.com/microsoft/vscode-codicons[codicons]. +
 Follow the instruction link:https://github.com/mortepau/codicons.nvim#how-to-patch-fonts[here]. +
 Install `fontforge` using `apt` or other package manager so that dependencies are automatically resolved. +
