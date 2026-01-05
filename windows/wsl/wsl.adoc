@@ -27,8 +27,26 @@ dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /nores
 `wsl.exe --shutdown`
 
 == Setup
-* Link to windows home directory +
-  `ln -s /mnt/c/Users/<user>/ ~/winhome`
+
+=== Easy access to Windows files
+
+* Link to windows home directory
++
+[source,shell]
+----
+ln -s /mnt/c/Users/<user>/ ~/winhome
+----
+
+=== GUI/X applications
+
+[NOTE]
+====
+Newer versions of WSL support GUI applications natively, So `DISPLAY` environment variable is not necessary. +
+Refer to link:https://docs.microsoft.com/en-us/windows/wsl/tutorials/gui-apps[this page] for more detail. +
+However, to run GUI/X applications from inside docker containers, setting `DISPLAY` is still necessary. +
+If you just need to sync clipboard, tmux does that for you if `set-clipboard on` is set in `.tmux.conf`.
+====
+
 * Set `DISPLAY` environment varialbe to use `xclip`. +
 ** Install X server link:https://sourceforge.net/projects/vcxsrv/[VcXsrv]
 ** The value of `DISPLAY`
