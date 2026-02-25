@@ -39,14 +39,19 @@ ln -s /mnt/c/Users/<user>/ ~/winhome
 
 === GUI/X applications
 
-[NOTE]
-====
-Newer versions of WSL support GUI applications natively, So `DISPLAY` environment variable is not necessary. +
+WSL is now bundled with WSLg and supports GUI applications natively so X server apps (such as `XLaunch`) is no longer necessary. +
+Also `DISPLAY` environment variable is set automatically. +
 Refer to link:https://docs.microsoft.com/en-us/windows/wsl/tutorials/gui-apps[this page] for more detail. +
-However, to run GUI/X applications from inside docker containers, setting `DISPLAY` is still necessary. +
-If you just need to sync clipboard, tmux does that for you if `set-clipboard on` is set in `.tmux.conf`.
-====
 
+To run GUI applications inside containers, set `DISPLAY` variable to the same value in the container and mount some files. +
+[source,shell]
+----
+docker run --interactive --tty --rm --env DISPLAY --volume /tmp/.X11-unix:/tmp/.X11-unix --volume /mnt/wslg:/mnt/wslg <image>
+----
+
+.Older versions of WSL
+[%collapsible]
+====
 * Set `DISPLAY` environment varialbe to use `xclip`. +
 ** Install X server link:https://sourceforge.net/projects/vcxsrv/[VcXsrv]
 ** The value of `DISPLAY`
@@ -55,6 +60,7 @@ If you just need to sync clipboard, tmux does that for you if `set-clipboard on`
 *** WSL2
 **** IP address of `nameserver` in `/etc/resolv.conf` with `:0.0` appended. +
 **** e.g. `172.24.16.1:0.0`
+====
 
 == Configuration
 === Startup
