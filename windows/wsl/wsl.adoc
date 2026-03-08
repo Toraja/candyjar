@@ -71,7 +71,7 @@ Refer to link:https://docs.microsoft.com/en-us/windows/wsl/wsl-config=set-wsl-la
 === Spec
 Memory, the number of processors, swap size and etc can be configured by editing
 (or creating) `~/.wslconfig` on windows. +
-Refer to link:https://www.bleepingcomputer.com/news/microsoft/windows-10-wsl2-now-allows-you-to-configure-global-options/[this page] for more detail.
+Refer to link:https://learn.microsoft.com/en-us/windows/wsl/wsl-config[this page] for more detail.
 
 == SSH
 * IP address is either `127.0.0.1` or one under `eth0` of `ip addr` output.
