@@ -46,3 +46,10 @@ A workaround is to start such program via powershell.
 ```powershell
 C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -WindowStyle Hidden -Command "Start-Process ${env:ProgramFiles(x86)}\Microsoft\Edge\Application\msedge.exe -Args www.bing.com"
 ```
+
+### Pin shortcut to Start Menu
+
+1. Create a shortcut.
+1. Enter `shell:Start Menu` in explorer or `Run` (Win + R), then enter `Programs` directory.
+1. Add the shortcut to the `Program` directory. This will add the shortcut to the list of all programs in Start Menu.
+1. Search the shortcut, right click it and selet `Pin to Start`.
