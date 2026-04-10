@@ -1,0 +1,5 @@
+jupytext-to-md file:
+	jupytext --to markdown {{invocation_directory() / file}}
+
+jupytext-to-ipynb file:
+	jupytext --to ipynb {{invocation_directory() / file}}
