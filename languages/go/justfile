@@ -1,0 +1,6 @@
+default:
+	just --list --unsorted
+
+# e.g. pkgsite [-http=<ip>:<port>] [-open]
+godoc *flags:
+	cd snippets/ && pkgsite {{flags}}
