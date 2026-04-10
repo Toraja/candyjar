@@ -30,3 +30,17 @@ cd <dir in which go.mod located?>
 # -o inlucde only specified package
 godepgraph -s -o <package prefix> <package to view dependency>
 ----
+
+=== Host Godoc locally
+link:https://pkg.go.dev/golang.org/x/pkgsite/cmd/pkgsite[pkgsite] is a tool to host Godoc locally.
+
+[source,shell]
+.Usage
+----
+cd <dir in which go.mod located>
+pkgsite [-http=<ip>:<port>] [-open]
+----
+
+There a few things to note:
+* Module path must be a repo-like path such as `example.com/username/repo` or `pkgsite` fails to host the doc.
+* It hosts the doc of all packages in the module, so directory structure can be arbitrary.
