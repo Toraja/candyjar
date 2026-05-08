@@ -6,7 +6,7 @@
 #### keychain
 1. Create a pair of RSA keys on the local machine.
   ```sh
-  ssh-keygen -t <algorithm> -C <description> -f [<output dir>/]<filename>
+  ssh-keygen -t <ALGORITHM> -C <DESCRIPTION> -f [<OUTPUT_DIR>/]<FILENAME>
   # e.g.
   ssh-keygen -t ed25519 -C mypc -f ~/.ssh/foobar
   ```
@@ -15,13 +15,13 @@
 on the remote machine you want to connect to.  
   Or you can simply run the command below on the local machine.
   ```sh
-  ssh-copy-id <user>@<host>
+  ssh-copy-id <USER>@<HOST>
   ```
 1. On the local machine, add the code below to bashrc (or something alike),
 where `<pass-to-key>` is the absolute path or the relative path from
 `~/.ssh` to the private key.
   ```sh
-  eval $(keychain --agents ssh --eval <path-to-key>)
+  eval $(keychain --agents ssh --eval <PATH_TO_KEY>)
   ```
 1. SSH to the server.
 
@@ -35,12 +35,12 @@ Can't determine fingerprint from the following line, falling back to filename
 
 1. Create a custom ssh-askpass file that outputs the password
   ```sh
-  echo <password of your key>
+  echo <PASSWORD_OF_YOUR_KEY>
   ```
 1. Make it executable
 1. Run ssh command with the custom ssh-askpass
   ```sh
-  SSH_ASKPASS_REQUIRE=force SSH_ASKPASS=<path to ssh-askpass> ssh ...
+  SSH_ASKPASS_REQUIRE=force SSH_ASKPASS=<PATH_TO_SSH_ASKPASS> ssh ...
   ```
 
 To improve security, use password manager such as `keepassxc` to store the password and create a custom ssh-askpass file that retrieves the password from the password manager.
