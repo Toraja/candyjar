@@ -32,7 +32,8 @@ Can't determine fingerprint from the following line, falling back to filename
 ```
 
 #### Custom ssh-askpass
-1. Create a custom ssh-askpass file which has the below contents.
+
+1. Create a custom ssh-askpass file that outputs the password
   ```sh
   echo <password of your key>
   ```
@@ -41,6 +42,40 @@ Can't determine fingerprint from the following line, falling back to filename
   ```sh
   SSH_ASKPASS_REQUIRE=force SSH_ASKPASS=<path to ssh-askpass> ssh ...
   ```
+
+To improve security, use password manager such as `keepassxc` to store the password and create a custom ssh-askpass file that retrieves the password from the password manager.
+
+_ssh-askpass_
+```sh
+# Password
+keepassxc-cli show --show-protected --attributes password <DATABASE_KDBX_FILE> <ENTRY_NAME>
+# OTP
+keepassxc-cli show --totp <DATABASE_KDBX_FILE> <ENTRY_NAME>
+# Combined with gpg (keepassxc-cli can receive password via stdin)
+gpg --decrypt <PATH_TO_ENCRYPTED_PASSWORD_FILE> | keepassxc-cli show ...
+```
+
+ssh-askpass can also handle the case when it is required to enter password multiple times.  
+Prompt string is passed to ssh-askpass as an argument, so you can use it to determine which password is required.  
+(`sleep` seems to be necessary to give some time for ssh to process)
+
+_ssh-askpass_
+```sh
+if [[ "$prompt" =~ 'Password:' ]]; then
+  sleep 0.2
+  echo <PASSWORD>
+elif [[ "$prompt" =~ 'OTP:' ]]; then
+  sleep 0.2
+  echo <OTP>
+# You can also answer to non-password prompts
+elif [[ "$prompt" =~ 'blah blah (yes/no)?' ]]; then
+  sleep 0.2
+  echo yes
+else
+  echo Unknown prompt: "$prompt"
+  exit 1
+fi
+```
 
 ### Options
 Add as option with `-o` or edit `/etc/ssh/ssh_config`.
