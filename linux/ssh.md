@@ -25,6 +25,10 @@ where `<pass-to-key>` is the absolute path or the relative path from
     ```
 1. SSH to the server.
 
+If keychain outputs warning message like below, update keychain as it is old and does not support
+OpenSSH 6.8+ format.  
+`Can't determine fingerprint from the following line, falling back to filename`
+
 #### Custom ssh-askpass
 1. Create a custom ssh-askpass file which has the below contents.
   ```sh
@@ -35,10 +39,6 @@ where `<pass-to-key>` is the absolute path or the relative path from
   ```sh
   SSH_ASKPASS_REQUIRE=force SSH_ASKPASS=<path to ssh-askpass> ssh ...
   ```
-
-If keychain outputs warning message like below, update keychain as it is old and does not support
-OpenSSH 6.8+ format.  
-`Can't determine fingerprint from the following line, falling back to filename`
 
 ### Options 
 Add as option with `-o` or edit `/etc/ssh/ssh_config`.
