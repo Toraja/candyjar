@@ -5,29 +5,31 @@
 ### Connect without password prompt
 #### keychain
 1. Create a pair of RSA keys on the local machine.
-    ```sh
-    ssh-keygen -t <algorithm> -C <description> -f [<output dir>/]<filename>
-    # e.g.
-    ssh-keygen -t ed25519 -C mypc -f ~/.ssh/foobar
-    ```
+  ```sh
+  ssh-keygen -t <algorithm> -C <description> -f [<output dir>/]<filename>
+  # e.g.
+  ssh-keygen -t ed25519 -C mypc -f ~/.ssh/foobar
+  ```
 1. Store the private key in somewhere secure on the local machine.
 1. Add the content of the public key to the file `~/.ssh/authorized_key` of the user
 on the remote machine you want to connect to.  
-    Or you can simply run the command below on the local machine.
-    ```sh
-    ssh-copy-id <user>@<host>
-    ```
+  Or you can simply run the command below on the local machine.
+  ```sh
+  ssh-copy-id <user>@<host>
+  ```
 1. On the local machine, add the code below to bashrc (or something alike),
 where `<pass-to-key>` is the absolute path or the relative path from
 `~/.ssh` to the private key.
-    ```sh
-    eval $(keychain --agents ssh --eval <path-to-key>)
-    ```
+  ```sh
+  eval $(keychain --agents ssh --eval <path-to-key>)
+  ```
 1. SSH to the server.
 
 If keychain outputs warning message like below, update keychain as it is old and does not support
-OpenSSH 6.8+ format.  
-`Can't determine fingerprint from the following line, falling back to filename`
+OpenSSH 6.8+ format.
+```
+Can't determine fingerprint from the following line, falling back to filename
+```
 
 #### Custom ssh-askpass
 1. Create a custom ssh-askpass file which has the below contents.
@@ -40,10 +42,10 @@ OpenSSH 6.8+ format.
   SSH_ASKPASS_REQUIRE=force SSH_ASKPASS=<path to ssh-askpass> ssh ...
   ```
 
-### Options 
+### Options
 Add as option with `-o` or edit `/etc/ssh/ssh_config`.
 
-#### Connect without storing finger print  
+#### Connect without storing finger print
 `StrictHostKeyChecking=no`
 
 #### Not storing host key to known_hosts file
@@ -51,11 +53,11 @@ Add as option with `-o` or edit `/etc/ssh/ssh_config`.
 
 ## Troubleshoot
 - `WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!` is displayed and cannot proceed.
-    - Remove the entry for the host from `.ssh/known_hosts` file either by:
-        - running `ssh-keygen -R '<host>'`.
-            - If the host's port differs from 22 `<host>` should include port number as in `[111.222.111.222]:10022`.
-        - simply edit `.ssh/known_hosts` file and remove the line.
-            - some hosts are encoded and hard to tell which line is for which host.
+  - Remove the entry for the host from `.ssh/known_hosts` file either by:
+    - Running `ssh-keygen -R '<host>'`.
+      - If the host's port differs from 22 `<host>` should include port number as in `[111.222.111.222]:10022`.
+    - Simply edit `.ssh/known_hosts` file and remove the line.
+      - Some hosts are encoded and hard to tell which line is for which host though.
 
 ## Server (daemon)
 
