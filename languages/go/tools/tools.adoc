@@ -41,6 +41,6 @@ cd <dir in which go.mod located>
 pkgsite [-http=<ip>:<port>] [-open]
 ----
 
-There a few things to note:
+A few things to note:
 * Module path must be a repo-like path such as `example.com/username/repo` or `pkgsite` fails to host the doc.
 * It hosts the doc of all packages in the module, so directory structure can be arbitrary.
