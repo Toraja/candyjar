@@ -1,0 +1,35 @@
+{{- $foo := "foofoo" -}}
+{{- $foobar := printf "%s-barbar" $foo -}}
+{{- $data := datasource "mydata" -}}
+
+# Outer
+
+## Variable
+
+_Template_
+```
+foo = {{ "{{" }} $foo }} and foobar = {{ "{{" }} $foobar }}
+```
+
+_Result_
+```
+foo = {{ $foo }} and foobar = {{ $foobar }}
+```
+
+## Datasource
+
+Today is {{ $data.year }}-{{ $data.month }}-{{ $data.day }}. The weather is {{ $data.weather }}.
+
+---
+
+{{ tpl (file.Read "templates/sub.gotmpl") . }}
+
+---
+
+# Conclusion
+
+To use the same dataset across multiple templates, pass it as datasource via `--datasource` flag, and then use `{{ "{{" }} $data := datasource "name" }}` to access it in the templates.
+
+> [!NOTE]
+> There is also `--context` flag, which is similar to `--datasource`. The difference is that `--context` is auto-loaded and available in all templates immediately, while `--datasource` requires manual loading via `{{ "{{" }} $data := datasource "name" }}`.
+> Since `--context` is auto-loaded, it is suitable for small/medium datasets, while `--datasource` is more suitable for large datasets, as it allows you to load only the necessary data when needed.

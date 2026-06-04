@@ -1,0 +1,2 @@
+build:
+	docker run --rm --volume ./:/work --workdir /work --user $(id -u):$(id -g) --pull always gomplate/gomplate --datasource mydata.env --file templates/main.gotmpl --out output/output.md

@@ -1,0 +1,38 @@
+{{- $baz := "bbb" -}}
+{{- $qux := "qqq" -}}
+{{- $data := datasource "mydata" -}}
+
+# Inner
+
+This is the inner template, which is embedded in the outer template.  
+
+## Variable
+
+The variables are file-scoped, so the variables from the outer template are not available in the inner template.  
+Therefore, the below will fail to render.
+
+_Template_
+```
+foo = {{ "{{" }} $foo }} and foobar = {{ "{{" }} $foobar }}
+```
+
+_Result_
+```
+error calling tpl: template: <inline>:16: undefined variable \"$foo\"
+```
+
+While the below will render successfully, as the variables are defined in this file.
+
+_Template_
+```
+baz = {{ "{{" }} $baz }} and quz = {{ "{{" }} $qux }}
+```
+
+_Result_
+```
+baz = {{ $baz }} and quz = {{ $qux }}
+```
+
+## Datasource
+
+Today is {{ $data.year }}-{{ $data.month }}-{{ $data.day }}. The weather is {{ $data.weather }}.
