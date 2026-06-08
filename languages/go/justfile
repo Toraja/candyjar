@@ -1,5 +1,4 @@
-default:
-	just --list --unsorted
+import '../justfile'
 
 # e.g. pkgsite [-http=<ip>:<port>] [-open]
 godoc *flags:

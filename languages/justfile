@@ -1,6 +1,3 @@
-# e.g. jupyter-lab [--ip <ip>] [--port <port>]
-mod go
-
 default:
 	just --list --unsorted
 
