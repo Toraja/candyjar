@@ -9,3 +9,6 @@ jupytext-to-md file:
 
 jupytext-to-ipynb file:
 	jupytext --to ipynb {{invocation_directory() / file}}
+
+jupytext-pair-md file:
+	jupytext --set-formats ipynb,md {{invocation_directory() / file}}
