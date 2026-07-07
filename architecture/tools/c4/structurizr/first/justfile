@@ -1,0 +1,8 @@
+export UID := `id --user`
+export GID := `id --group`
+
+serve:
+	docker compose up --detach serve
+
+export-static:
+	docker compose run --rm --detach export-static

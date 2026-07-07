@@ -1,0 +1,18 @@
+x-structurizr-base: &structurizr-base
+  image: structurizr/structurizr:latest
+  pull_policy: always
+  user: ${UID:-1000}:${GID:-1000}
+  volumes:
+    - ./:/usr/local/structurizr
+
+services:
+
+  serve:
+    <<: *structurizr-base
+    ports:
+      - "${PORT:-8080}:8080"
+    command: local
+
+  export-static:
+    <<: *structurizr-base
+    command: export -workspace workspace.dsl -format static -output public
