@@ -1,0 +1,105 @@
+{
+    "$schema": "https://calm.finos.org/release/1.2/meta/calm.json",
+    "unique-id": "my-first-architecture",
+    "name": "My First Architecture",
+    "description": "A simple architecture demonstrating a customer authentication service",
+    "metadata": {
+        "owner": "Architecture Team",
+        "version": "0.0.1",
+        "created": "2026-07-09",
+        "description": "CALM Beginner Tutorials",
+        "tags": ["learning", "authentication", "demo"]
+    },
+    "nodes": [
+        {
+            "unique-id": "end-user",
+            "node-type": "actor",
+            "name": "End User",
+            "description": "A customer or end user who authenticates with the system to access protected resources"
+        },
+        {
+            "unique-id": "customer-auth-service",
+            "node-type": "service",
+            "name": "Customer Authentication Service",
+            "description": "Validates user credentials against the identity store and manages the lifecycle of session tokens, including issuance, renewal, and revocation",
+            "metadata": {
+                "tech-owner": "Identity and Access Management Team",
+                "repository": "https://github.com/example-org/customer-auth-service",
+                "deployment-type": "container",
+                "sla-tier": "tier-1"
+            },
+            "interfaces": [
+                {
+                    "unique-id": "customer-auth-service-api",
+                    "protocol": "HTTPS",
+                    "host": "api.example.com",
+                    "port": 443,
+                    "path": "/api/v1"
+                }
+            ]
+        },
+        {
+            "unique-id": "customer-auth-database",
+            "node-type": "database",
+            "name": "Customer Authentication Database",
+            "description": "Stores user credential hashes, session tokens, and authentication audit logs for the customer authentication service",
+            "interfaces": [
+                {
+                    "unique-id": "customer-auth-database-connection",
+                    "host": "db.example.com",
+                    "port": 5432,
+                    "database": "customer_auth"
+                }
+            ]
+        },
+        {
+            "unique-id": "customer-auth-system",
+            "node-type": "system",
+            "name": "Customer Authentication System",
+            "description": "The overall system responsible for customer authentication, encompassing the authentication service and its backing credential store"
+        }
+    ],
+    "relationships": [
+        {
+            "unique-id": "end-user-interacts-with-auth-service",
+            "description": "Authenticates and manages sessions via",
+            "relationship-type": {
+                "interacts": {
+                    "actor": "end-user",
+                    "nodes": ["customer-auth-service"]
+                }
+            }
+        },
+        {
+            "unique-id": "customer-auth-service-to-database",
+            "description": "Reads and writes credential hashes and session tokens to",
+            "metadata": {
+                "latency-sla": "< 10ms",
+                "monitoring": true,
+                "circuit-breaker": false
+            },
+            "relationship-type": {
+                "connects": {
+                    "source": {
+                        "node": "customer-auth-service",
+                        "interfaces": ["customer-auth-service-api"]
+                    },
+                    "destination": {
+                        "node": "customer-auth-database",
+                        "interfaces": ["customer-auth-database-connection"]
+                    }
+                }
+            }
+        },
+        {
+            "unique-id": "customer-auth-system-composed-of",
+            "description": "Is composed of the authentication service and credential store",
+            "relationship-type": {
+                "composed-of": {
+                    "container": "customer-auth-system",
+                    "nodes": ["customer-auth-service", "customer-auth-database"]
+                }
+            }
+        }
+    ]
+}

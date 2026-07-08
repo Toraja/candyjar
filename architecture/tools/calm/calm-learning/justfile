@@ -1,0 +1,13 @@
+set dotenv-load
+
+host := env("HOST", "localhost")
+port := env("PORT", "3000")
+
+gen-doc arch:
+	calm docify --architecture {{arch}} --output output/{{file_stem(arch)}}/
+
+npm-install wd:
+	cd {{wd}} && npm install
+
+serve wd:
+	cd {{wd}} && npm start -- --host {{host}} --port {{port}}
