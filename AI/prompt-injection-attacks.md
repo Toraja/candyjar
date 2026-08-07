@@ -1,0 +1,3 @@
+https://www.proofpoint.com/us/threat-reference/prompt-injection
+
+> In one example, during recent demonstrationsat the Black Hat security conference, researchers showed a successful hijacking of Google’s Gemini AI to control smart home devices—turning off lights, opening windows, and activating boilers—simply by embedding malicious instructions in calendar invites. When victims innocently asked Gemini to summarize their upcoming events and responded with common phrases like “thanks,” these hidden commands triggered unauthorized control of their physical environment.
