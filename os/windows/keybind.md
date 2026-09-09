@@ -35,3 +35,8 @@ e.g. Assign `Left Control` to `Caps Lock`
 | 半角全角  | 29       |
 | 変換      | 79       |
 | カタカナ  | 70       |
+
+## PowerToys
+
+- Disable `Win+Alt+B` (Toggle HDR)
+  - This cannot be disabled by AutoHotkey
