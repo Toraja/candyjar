@@ -1,4 +1,7 @@
-## Change Key Location
+# Keybind
+
+## Scancode Map
+
 1. Press `Win+R` >> type `regedit` >> press `Enter`
 2. Go to `HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Keyboard Layout`
 3. Create new `Binary Value` and name it as `Scancode Map`
