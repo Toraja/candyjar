@@ -1,15 +1,22 @@
 ## Change Key Location
-1. Press *Win+r* >> type *regedit* >> press *Enter*  
-2. Go to *HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Keyboard Layout*  
-3. Create new binary and name it as *Scancode Map*  
-4. Modify it as described below  
-    1. Must have 8 pairs of leading "00"  
+1. Press `Win+R` >> type `regedit` >> press `Enter`
+2. Go to `HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Keyboard Layout`
+3. Create new `Binary Value` and name it as `Scancode Map`
+4. Modify it as described below
+    1. Must have 8 pairs of leading "00"
     2. The number of the pair of keys to change + 1 in 2 digit form + 3 pairs of "00"  
-      eg. `02 00 00 00`  
+      e.g. `02 00 00 00`  
     3. Scancode of key to assign on the left, Scancode of key to be assigned on the right  
       Repeat as many as you would like to change  
-      eg. `1D 00 3A 00` (<-- assign Control to Caps Lock, or Caps Lock becomes Control)  
+      e.g. `1D 00 3A 00` (<-- assign Control to Caps Lock, or Caps Lock becomes Control)  
     4. Must have 4 pairs of trailing "00"
+
+e.g. Assign `Left Control` to `Caps Lock`
+```
+00 00 00 00 00 00 00 00
+02 00 00 00 1D 00 3A 00
+00 00 00 00
+```
 
 ### Scancodes
 
