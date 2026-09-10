@@ -1,5 +1,24 @@
 # Task Scheduler
 
+## Import Task
+
+When importing a task that was exported from another computer, the user account that runs the task might be SID-based and not exist on the current computer.
+You can get the current user by running `whoami /user` on PowerShell or Command Prompt, but setting the user account in Task Scheduler GUI might not work.
+In such case, you can edit the XML file of the task and change the `UserId` to the current user name.
+
+```xml
+<Task ...>
+  ...
+  <Principals>
+    <Principal id="Author">
+      <UserId>USER NAME</UserId>
+      ...
+    </Principal>
+  </Principals>
+  ...
+</Task>
+```
+
 ## Tips
 
 ### Running PowerShell script
