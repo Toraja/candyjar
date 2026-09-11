@@ -85,6 +85,13 @@
 
 - Clipboard history: `On`
 
+# Control Panel
+
+## Hibernate
+
+- Run `control.exe /name Microsoft.PowerOptions`
+- Select `Choose what the power button does` -> `Change settings that are currently unavailable` -> Check `Hibernate`
+
 # Vendor Specific
 
 ## Fujitsu
