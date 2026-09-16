@@ -6,6 +6,7 @@
 - Asana (Asana.Asana)
 - AutoHotkey (AutoHotkey.AutoHotkey)
 - Brave (Brave.Brave)
+- DuckDuckGo (DuckDuckGo.DesktopBrowser)
 - Firefox (Mozilla.Firefox)
 - Git (Git.Git)
 - Google IME (Google.JapaneseIME)
