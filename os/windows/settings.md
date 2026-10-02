@@ -42,6 +42,8 @@
 - Search: `Hide`
 - Task View: `Off`
 - Widgets: `Off`
+- Taskbar behaviours
+  - When using multiple displays, show my taskbar apps on: `Main taskbar and taskbar where window is open`
 
 ## System
 
