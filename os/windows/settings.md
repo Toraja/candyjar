@@ -73,6 +73,8 @@
 
 ### Multitasking
 
+- Snap windows
+  - When I snap a window, suggest what I can snap next to it: `Off`
 - Show tags from apps when snapping or pressing `Alt + Tab`: `Don't show tabs`
 
 ### Advanced
