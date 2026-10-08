@@ -96,6 +96,14 @@
 - Run `control.exe /name Microsoft.PowerOptions`
 - Select `Choose what the power button does` -> `Change settings that are currently unavailable` -> Check `Hibernate`
 
+# Other
+
+##  Keyboard
+
+- Disable cursor blinking (Windows Terminal etc)
+  - Run `control main.cpl keyboard`
+  - Cursor blink rate: `None`
+
 # Vendor Specific
 
 ## Fujitsu
