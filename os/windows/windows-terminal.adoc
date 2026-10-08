@@ -13,7 +13,9 @@ See link:https://github.com/microsoft/terminal#other-install-methods[Other insta
 Add below to the top layer.
 [source,json]
 ----
+{
     "launchMode": "maximized",
+}
 ----
 ==== Change default shell to ubuntu
 By setting default profile::
@@ -45,6 +47,11 @@ To install:
 +
 [source,json]
 ----
+{
+    "profiles":
+    {
+        "defaults":
+        {
             "font":
             {
                 "face": "<Font name>",
@@ -52,6 +59,9 @@ To install:
                     "liga": 0
                 }
             }
+        }
+    }
+}
 ----
 For more detail, see https://learn.microsoft.com/en-us/windows/terminal/customize-settings/profile-appearance#font.
 
@@ -84,18 +94,34 @@ The below complements each of the instruction.
 Cursor::
 [source,json]
 ----
-"cursorShape": "filledBox"
-"colorScheme": "Campbell"
+{
+    "profiles":
+    {
+        "defaults":
+        {
+            "cursorShape": "filledBox",
+            "colorScheme": "Campbell",
+        }
+    }
+}
 ----
 
 Other setting::
 [source,json]
 ----
-"bellStyle": "none",
-"tabSwitcherMode": "disabled",
-"suppressApplicationTitle": true,
-"scrollbarState": "hidden",
-"trimBlockSelection": true
+{
+    "profiles":
+    {
+        "defaults":
+        {
+            "bellStyle": "none",
+            "tabSwitcherMode": "disabled",
+            "suppressApplicationTitle": true,
+            "scrollbarState": "hidden",
+            "trimBlockSelection": true,
+        }
+    }
+}
 ----
 
 === Ubuntu
